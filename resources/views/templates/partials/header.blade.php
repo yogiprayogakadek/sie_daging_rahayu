@@ -65,8 +65,11 @@
                                     <a class="list-group-item list-group-item-action border-0"
                                         href="page-support-ticket.html"><i class="w30 fa fa-tag"></i>Support Ticket</a>
                                 </div>
-                                <a href="auth-signin.html"
-                                    class="btn bg-secondary text-light text-uppercase rounded-0">Sign out</a>
+                                <a href="href="{{route('logout')}}"
+                                    class="btn bg-secondary text-light text-uppercase rounded-0" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign out</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                             </div>
                         </div>
                     </div>

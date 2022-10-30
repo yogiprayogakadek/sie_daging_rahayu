@@ -14,10 +14,10 @@
           <div class="col">
             <ol class="breadcrumb bg-transparent mb-0">
               <li class="breadcrumb-item">
-                <a class="text-secondary" href="index.html">Home</a>
+                <a class="text-secondary" href="index.html">@yield('pwd')</a>
               </li>
               <li class="breadcrumb-item active" aria-current="page">
-                Modals
+                @yield('sub-pwd')
               </li>
             </ol>
           </div>
@@ -27,9 +27,7 @@
 
     <div class="page-body px-xl-4 px-sm-2 px-0 py-lg-2 py-1 mt-0 mt-lg-3">
       <div class="container-fluid">
-        <div class="row g-3 row-deck">
-          {{-- content --}}
-        </div>
+        @yield('content')
       </div>
     </div>
 
