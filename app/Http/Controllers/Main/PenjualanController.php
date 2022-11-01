@@ -54,7 +54,7 @@ class PenjualanController extends Controller
         $view = [
             'data' => view('main.penjualan.detail.print', compact('data'))->render()
         ];
-
+        
         return response()->json($view);
     }
 }

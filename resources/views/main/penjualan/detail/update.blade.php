@@ -3,8 +3,7 @@
         <th>No</th>
         <th>Kode Transaksi</th>
         <th>Staff</th>
-        <th>Member</th>
-        <th>Discount</th>
+        <th>Diskon</th>
         <th>Total</th>
         <th>Tanggal Transaksi</th>
     </thead>
@@ -12,12 +11,11 @@
         @foreach ($data as $data)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{$data->transaction_code}}</td>
-                <td>{{$data->staff->name}}</td>
-                <td>{{$data->member_id != null ? $data->member->name : '-'}}</td>
-                <td>{{$data->discount}}%</td>
+                <td>{{$data->kode_transaksi}}</td>
+                <td>{{$data->staff->nama}}</td>
+                <td>{{$data->diskon}}%</td>
                 <td>{{convertToRupiah($data->total)}}</td>
-                <td>{{$data->sale_date}}</td>
+                <td>{{$data->tanggal_transaksi}}</td>
             </tr>
         @endforeach
     </tbody>

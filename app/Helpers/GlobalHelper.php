@@ -50,16 +50,7 @@
     function menu()
     {
         $menu = [
-            'Category', 'Product', 'Staff', 'Member', 'Sale'
-        ];
-
-        return $menu;
-    }
-
-    function indoMenu()
-    {
-        $menu = [
-            'Kategori', 'Produk', 'Staff', 'Member', 'Transaksi'
+            'Kategori', 'Produk', 'Staff', 'Penjualan'
         ];
 
         return $menu;
@@ -68,11 +59,10 @@
     function RouteURL()
     {
         $url = [
-            0 => 'category.index',
-            1 => 'product.index',
+            0 => 'kategori.index',
+            1 => 'produk.index',
             2 => 'staff.index',
-            3 => 'member.index',
-            4 => 'sale.index'
+            3 => 'penjualan.index'
         ];
 
         return $url;

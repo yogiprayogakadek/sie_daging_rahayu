@@ -1,15 +1,8 @@
 @extends('templates.master')
-
-@section('pwd', 'Laporan')
-
-@section('css')
-<meta name="csrf-token" content="{{ csrf_token() }}">
-@endsection
-
 @section('content')
-<div class="row printableArea">
+<div class="row g-3 row-deck printableArea">
     <div class="col-md-12" style="text-align: center">
-        <h2><strong>PT. Mesari Adi Harsa</strong></h2>
+        <h2><strong>UD Rahayu</strong></h2>
         <h3>
             <b>Laporan Data Transaksi</b>
         </h3>
@@ -37,20 +30,18 @@
                         <th>No</th>
                         <th>Kode Transaksi</th>
                         <th>Staff</th>
-                        <th>Member</th>
                         <th>Diskon</th>
                         <th>Tanggal Transaksi</th>
                         <th>Detail Transaksi</th>
                         <th>Total Transaksi</th>
                     </tr>
-                    @foreach ($data as $data)
+                    {{-- @foreach ($data as $data)
                         <tr>
                             <td class="align-middle">{{$loop->iteration}}</td>
-                            <td class="align-middle">{{$data->transaction_code}}</td>
-                            <td class="align-middle">{{$data->staff->name}}</td>
-                            <td class="align-middle">{{$data->member == null ? '-' : $data->member->name}}</td>
-                            <td class="align-middle">{{$data->discount}}%</td>
-                            <td class="align-middle">{{$data->sale_date}}</td>
+                            <td class="align-middle">{{$data->kode_transaksi}}</td>
+                            <td class="align-middle">{{$data->staff->nama}}</td>
+                            <td class="align-middle">{{$data->diskon}}%</td>
+                            <td class="align-middle">{{$data->tanggal_transaksi}}</td>
                             <td>
                                 <table class="table no-borderless">
                                     <tr>
@@ -59,15 +50,15 @@
                                     </tr>
                                     @foreach ($data->detail as $detail)
                                     <tr>
-                                        <td>{{$detail->product->name}}</td>
-                                        <td>{{convertToRupiah($detail->product->price)}}</td>
+                                        <td>{{$detail->produk->nama}}</td>
+                                        <td>{{convertToRupiah($detail->produk->harga)}}</td>
                                     </tr>
                                     @endforeach
                                 </table>
                             </td>
                             <td class="align-middle">{{convertToRupiah($data->total)}}</td>
                         </tr>
-                        @endforeach
+                    @endforeach --}}
                 </table>
             </div>
         </div>

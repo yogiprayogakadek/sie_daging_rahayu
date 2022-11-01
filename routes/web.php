@@ -13,7 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', 'Main\DashboardController@index')->middleware('auth');
 Route::middleware('auth')->namespace('Main')->group(function() {
+    Route::controller(DashboardController::class)
+        ->prefix('dashboard')
+        ->as('dashboard.')
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::post('/chart', 'chart')->name('chart');
+    });
+
     Route::controller(KategoriController::class)
         ->prefix('kategori')
         ->as('kategori.')
