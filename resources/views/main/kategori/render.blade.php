@@ -1,13 +1,13 @@
 <div class="card d-block">
     <div class="card-header">
         <div class="card-title">Data Kategori</div>
-        {{-- @can('adminAndStaff') --}}
+        @can('adminAndStaff')
         <div class="card-options">
             <button class="btn btn-primary btn-add" style="margin-left: 2px">
                 <i class="fa fa-plus"></i> Tambah
             </button>
         </div>
-        {{-- @endcan --}}
+        @endcan
     </div>
     <div class="card-body">
         <table class="table table-stripped" id="tableData">
@@ -15,9 +15,9 @@
                 <th>No</th>
                 <th>Nama Kategori</th>
                 <th>Status</th>
-                {{-- @can('adminAndStaff') --}}
+                @can('adminAndStaff')
                 <th>Aksi</th>
-                {{-- @endcan --}}
+                @endcan
             </thead>
             <tbody>
                 @foreach ($kategori as $kategori)
@@ -25,7 +25,7 @@
                         <td>{{$loop->iteration}}</td>
                         <td>{{$kategori->nama}}</td>
                         <td>{{$kategori->status == 1 ? 'Aktif' : 'Tidak Aktif'}}</td>
-                        {{-- @can('adminAndStaff') --}}
+                        @can('adminAndStaff')
                         <td>
                             <button class="btn btn-success btn-edit" data-id="{{$kategori->id}}">
                                 <i class="fa fa-pencil"></i>
@@ -34,7 +34,7 @@
                                 <i class="fa fa-trash"></i>
                             </button> --}}
                         </td>
-                        {{-- @endcan --}}
+                        @endcan
                     </tr>
                 @endforeach
             </tbody>

@@ -25,8 +25,8 @@
     $('#tableData').DataTable({
         language: {
             paginate: {
-                previous: "<i class='mdi mdi-chevron-left'>",
-                next: "<i class='mdi mdi-chevron-right'>"
+                previous: "<i class='fa fa-arrow-left'>",
+                next: "<i class='fa fa-arrow-right'>"
             },
             info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
             infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",

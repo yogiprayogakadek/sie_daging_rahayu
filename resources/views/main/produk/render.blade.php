@@ -1,13 +1,13 @@
 <div class="card d-block">
     <div class="card-header">
         <div class="card-title">Data Produk</div>
-        {{-- @can('adminAndStaff') --}}
+        @can('adminAndStaff')
         <div class="card-options">
             <button class="btn btn-primary btn-add" style="margin-left: 2px">
                 <i class="fa fa-plus"></i> Tambah
             </button>
         </div>
-        {{-- @endcan --}}
+        @endcan
     </div>
     <div class="card-body">
         <table class="table table-stripped" id="tableData">
@@ -18,9 +18,9 @@
                 <th>Foto</th>
                 <th>Stok</th>
                 <th>Produk Reject</th>
-                {{-- @can('adminAndStaff') --}}
+                @can('adminAndStaff')
                 <th>Aksi</th>
-                {{-- @endcan --}}
+                @endcan
             </thead>
             <tbody>
                 @foreach ($produk as $produk)
@@ -33,7 +33,7 @@
                         </td>
                         <td>{{$produk->atribut != null ? $produk->atribut->stok : 0}}</td>
                         <td>{{$produk->atribut != null ? $produk->atribut->produk_rejected : 0}}</td>
-                        {{-- @can('adminAndStaff') --}}
+                        @can('adminAndStaff')
                         <td>
                             <button class="btn btn-success btn-edit" data-id="{{$produk->id}}">
                                 <i class="fa fa-pencil"></i>
@@ -42,7 +42,7 @@
                                 <i class="fa fa-trash"></i>
                             </button> --}}
                         </td>
-                        {{-- @endcan --}}
+                        @endcan
                     </tr>
                 @endforeach
             </tbody>

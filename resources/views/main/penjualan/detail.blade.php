@@ -78,6 +78,7 @@
 @push('script')
 <script src="{{asset('assets/functions/main.js')}}"></script>
 <script src="{{asset('assets/functions/print/main.js')}}"></script>
+<script src="{{asset('assets/functions/print/printThis.js')}}"></script>
 <script>
     function getData() {
         $.ajax({

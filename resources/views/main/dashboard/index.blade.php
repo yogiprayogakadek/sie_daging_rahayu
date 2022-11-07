@@ -34,43 +34,49 @@
                 </div>
             </div>
             @endforeach
-        </div>
 
-        <div class="card">
-            <div class="card-header bg-info-transparent card-transparent">
-                <h3 class="card-title text-info chart-title">Chart Penjualan Produk</h3>
-                <div class="card-options">
-                    <div class="form-group">
-                        <select class="form-control" id="filter" hidden>
-                            <option value="">Pilih Filter</option>
-                            <option value="product" selected>Berdasarkan Produk</option>
-                            <option value="category">Berdasarkan Kategori</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control" id="bulan">
-                            <option value="">Pilih Bulan</option>
-                            @foreach (bulan() as $key => $bulan)
-                            <option value="{{$key+1}}">{{$bulan}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group" style="margin-left: 4px">
-                        <select class="form-control" id="tahun">
-                            <option value="">Pilih Tahun</option>
-                            @for($i = 2022; $i <= 2030; $i++) <option value="{{$i}}">{{$i}}</option>
-                                @endfor
-                        </select>
-                    </div>
-                    <div class="form-group" style="margin-left: 4px">
-                        <button class="btn btn-primary btn-lg" id="btn-search">
-                            <i class="fe fe-refresh-cw"></i>
-                        </button>
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h6 class="card-title mb-0">Chart Penjualan Produk</h6>
+    
+                    <div class="dropdown morphing scale-left">
+                        <div class="row">
+                            <select class="form-control" id="filter" hidden>
+                                <option value="">Pilih Filter</option>
+                                <option value="product" selected>Berdasarkan Produk</option>
+                                <option value="category">Berdasarkan Kategori</option>
+                            </select>
+                            <div class="col-5">
+                                <select class="form-control" id="bulan">
+                                    <option value="">Pilih Bulan</option>
+                                    @foreach (bulan() as $key => $bulan)
+                                    <option value="{{$key+1}}">{{$bulan}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-5">
+                                <select class="form-control" id="tahun">
+                                    <option value="">Pilih Tahun</option>
+                                    @for($i = 2022; $i <= 2030; $i++) <option value="{{$i}}">{{$i}}</option>
+                                        @endfor
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <button class="btn btn-primary" id="btn-search">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div class="card-body render">
+                    <h6 class="text-center">
+                        Chart akan tampil disini
+                    </h6>
+                </div>
             </div>
-            <div class="card-body render"></div>
         </div>
+
     </div>
 </div>
 @endsection

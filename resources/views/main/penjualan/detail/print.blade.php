@@ -8,9 +8,9 @@
         </h3>
         <div class="pull-left py-5">
             <address>
-                <p class="m-t-30">
+                {{-- <p class="m-t-30">
                     <img src="{{asset('assets/images/logo.png')}}" height="100">
-                </p>
+                </p> --}}
                 <p class="m-t-30">
                     <b>Dicetak oleh :</b>
                     <i class="fa fa-user"></i> {{username()}}

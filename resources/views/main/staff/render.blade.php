@@ -1,13 +1,13 @@
 <div class="card d-block">
     <div class="card-header">
         <div class="card-title">Data Staff</div>
-        {{-- @can('admin') --}}
+        @can('admin')
         <div class="card-options">
             <button class="btn btn-primary btn-add" style="margin-left: 2px">
                 <i class="fa fa-plus"></i> Tambah
             </button>
         </div>
-        {{-- @endcan --}}
+        @endcan
     </div>
     <div class="card-body">
         <table class="table table-stripped" id="tableData">
@@ -19,9 +19,9 @@
                 <th>Alamat</th>
                 <th>Username</th>
                 <th>Foto</th>
-                {{-- @can('admin') --}}
+                @can('admin')
                 <th>Aksi</th>
-                {{-- @endcan --}}
+                @endcan
             </thead>
             <tbody>
                 @foreach ($staff as $staff)
@@ -35,7 +35,7 @@
                         <td>
                             <img src="{{asset($staff->user->foto)}}" width="70px">
                         </td>
-                        {{-- @can('admin') --}}
+                        @can('admin')
                         <td>
                             <button class="btn btn-success btn-edit" data-id="{{$staff->id}}">
                                 <i class="fa fa-pencil"></i>
@@ -44,7 +44,7 @@
                                 <i class="fa fa-trash"></i>
                             </button> --}}
                         </td>
-                        {{-- @endcan --}}
+                        @endcan
                     </tr>
                 @endforeach
             </tbody>
