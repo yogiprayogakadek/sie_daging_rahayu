@@ -29,7 +29,9 @@
                 <div class="form-group mt-2">
                     <label for="harga">Harga Produk</label>
                     <input type="text" class="form-control harga" name="harga" id="harga"
-                        placeholder="masukkan harga produk" value="{{convertToRupiah($produk->harga)}}">
+                        placeholder="masukkan harga produk" value="{{$produk->harga}}">
+                    {{-- <input type="text" class="form-control harga" name="harga" id="harga"
+                        placeholder="masukkan harga produk" value="{{convertToRupiah($produk->harga)}}"> --}}
                     <div class="invalid-feedback error-harga"></div>
                 </div>
                 <div class="form-group mt-2">

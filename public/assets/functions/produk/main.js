@@ -46,9 +46,9 @@ function convertToRupiah(number, prefix) {
 $(document).ready(function () {
     getData();
 
-    $("body").on("keyup", '#harga', function (e) {
-        $("#harga").val(convertToRupiah($(this).val(), "Rp. "))
-    });
+    // $("body").on("keyup", '#harga', function (e) {
+    //     $("#harga").val(convertToRupiah($(this).val(), "Rp. "))
+    // });
 
     // tambah kategori
     $('body').on('click', '.btn-add', function () {
