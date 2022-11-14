@@ -112,6 +112,17 @@
 
     getData();
 
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName);
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
+
     $('body').on('click', '#btn-refresh', function() {
         getData()
     });
@@ -147,6 +158,9 @@
                     dataType: "json",
                     success: function (response) {
                         document.title= 'Laporan - ' + new Date().toJSON().slice(0,10).replace(/-/g,'/')
+                        // printDiv($($.parseHTML(response.data)).find(".printableArea")[0])
+                        // $(response.data).printDiv('printableArea')
+                        // $($.parseHTML(response.data)).find(".printableArea")[0].printArea(options)
                         $(response.data).find("div.printableArea").printArea(options);
                     }
                 });

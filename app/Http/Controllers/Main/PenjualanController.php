@@ -52,7 +52,7 @@ class PenjualanController extends Controller
     {
         $data = Penjualan::with('detail.produk', 'staff')->whereBetween('tanggal_transaksi', [$start, $end])->get();
         $view = [
-            'data' => view('main.penjualan.detail.as')->render()
+            'data' => view('main.penjualan.detail.print', compact('data'))->render()
         ];
         
         return response()->json($view);

@@ -33,8 +33,8 @@
                     <label for="status">Status</label>
                     <select name="status" id="status" class="form-control status">
                         <option value="">Pilih Status</option>
-                        <option value="1" {{$kategori->status == 1 ? 'selected' : ''}}>Aktif</option>
-                        <option value="0" {{$kategori->status == 0 ? 'selected' : ''}}>Tidak Aktif</option>
+                        <option value="1" {{$pemasok->status == 1 ? 'selected' : ''}}>Aktif</option>
+                        <option value="0" {{$pemasok->status == 0 ? 'selected' : ''}}>Tidak Aktif</option>
                     </select>
                     <div class="invalid-feedback error-status"></div>
                 </div>
