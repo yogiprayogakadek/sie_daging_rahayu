@@ -24,6 +24,7 @@
                         <span class="ms-2">Dashboard</span>
                     </a>
                 </li>
+                @cannot('staff')
                 <li>
                     <a class="m-link {{Request::is('pemasok') ? 'active' : '' }}" href="{{route('pemasok.index')}}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="currentColor" viewBox="0 0 16 16">
@@ -48,6 +49,7 @@
                         <span class="ms-2">Kategori</span>
                     </a>
                 </li>
+                @endcannot
                 <li>
                     <a class="m-link {{Request::is('produk') ? 'active' : '' }}" href="{{route('produk.index')}}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="currentColor" viewBox="0 0 16 16">
@@ -59,6 +61,7 @@
                         <span class="ms-2">Produk</span>
                     </a>
                 </li>
+                @cannot('staff')
                 <li>
                     <a class="m-link {{Request::is('staff') ? 'active' : '' }}" href="{{route('staff.index')}}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="currentColor" viewBox="0 0 16 16">
@@ -72,6 +75,8 @@
                         <span class="ms-2">Staff</span>
                     </a>
                 </li>
+                @endcannot
+                @can('adminAndStaff')
                 <li>
                     <a class="m-link {{Request::is('penjualan') ? 'active' : '' }}" href="{{route('penjualan.index')}}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="currentColor" viewBox="0 0 16 16">
@@ -85,6 +90,7 @@
                         <span class="ms-2">Penjualan</span>
                     </a>
                 </li>
+                @endcan
                 <li>
                     <a class="m-link {{Request::is('penjualan/detail') ? 'active' : '' }}" href="{{route('penjualan.detail')}}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="currentColor" viewBox="0 0 16 16">

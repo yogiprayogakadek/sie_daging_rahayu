@@ -145,23 +145,17 @@
             confirmButtonText: 'Ya, cetak!'
         }).then((result) => {
             if (result.value) {
-                var mode = "iframe"; //popup
-                var close = mode == "popup";
-                var options = {
-                    mode: mode,
-                    popClose: close,
-                    popTitle: 'LaporanDataTransaksi',
-                };
                 $.ajax({
                     type: "GET",
                     url: "/penjualan/print/"+$('#start_date').val()+"/"+$('#end_date').val(),
                     dataType: "json",
                     success: function (response) {
-                        document.title= 'Laporan - ' + new Date().toJSON().slice(0,10).replace(/-/g,'/')
+                        console.log('as')
+                        // document.title= 'Laporan - ' + new Date().toJSON().slice(0,10).replace(/-/g,'/')
                         // printDiv($($.parseHTML(response.data)).find(".printableArea")[0])
                         // $(response.data).printDiv('printableArea')
                         // $($.parseHTML(response.data)).find(".printableArea")[0].printArea(options)
-                        $(response.data).find("div.printableArea").printArea(options);
+                        // $(response.data).find("div.printableArea").printArea(options);
                     }
                 });
             }
