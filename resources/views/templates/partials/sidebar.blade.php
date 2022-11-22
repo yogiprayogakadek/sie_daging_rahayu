@@ -76,7 +76,7 @@
                     </a>
                 </li>
                 @endcannot
-                @can('adminAndStaff')
+                @can('staff')
                 <li>
                     <a class="m-link {{Request::is('penjualan') ? 'active' : '' }}" href="{{route('penjualan.index')}}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="currentColor" viewBox="0 0 16 16">
