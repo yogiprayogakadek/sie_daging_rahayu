@@ -78,7 +78,7 @@
 @push('script')
 <script src="{{asset('assets/functions/main.js')}}"></script>
 <script src="{{asset('assets/functions/print/main.js')}}"></script>
-<script src="{{asset('assets/functions/print/printThis.js')}}"></script>
+<script src="{{asset('assets/js/pdftoobject.min.js')}}"></script>
 <script>
     function getData() {
         $.ajax({
@@ -150,7 +150,7 @@
                     url: "/penjualan/print/"+$('#start_date').val()+"/"+$('#end_date').val(),
                     dataType: "json",
                     success: function (response) {
-                        console.log('as')
+                        console.log(response)
                         // document.title= 'Laporan - ' + new Date().toJSON().slice(0,10).replace(/-/g,'/')
                         // printDiv($($.parseHTML(response.data)).find(".printableArea")[0])
                         // $(response.data).printDiv('printableArea')

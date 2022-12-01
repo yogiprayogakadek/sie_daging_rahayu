@@ -30,7 +30,7 @@
             }
         </style>
     </head>
-    <body>
+    <body id="printArea">
         <div class="logo">
             <img src="{{public_path() . '\\'. 'assets/logo/logo.png'}}" height="150px">
         </div>
@@ -41,19 +41,14 @@
 
         <table class="table">
             <tr style="border: 1px">
-                <th rowspan="2">No</th>
-                <th rowspan="2">Kode Transaksi</th>
-                <th rowspan="2">Staff</th>
-                <th rowspan="2">Diskon</th>
-                <th rowspan="2">Tanggal Transaksi</th>
-                <th colspan="3">Detail Transaksi</th>
-                <th rowspan="2">Total Transaksi</th>
+                <th>No</th>
+                <th>Kode Transaksi</th>
+                <th>Staff</th>
+                <th>Diskon</th>
+                <th>Tanggal Transaksi</th>
+                <th>Detail Transaksi</th>
+                <th>Total Transaksi</th>
             </tr>
-            </tr>
-                <th>Nama Barang</th>
-                <th>Harga</th>
-                <th>Kuantitas</th>
-            <tr>
             @foreach ($data as $data)
                 <tr>
                     <td class="align-middle">{{$loop->iteration}}</td>
@@ -61,16 +56,22 @@
                     <td class="align-middle">{{$data->staff->nama}}</td>
                     <td class="align-middle">{{$data->diskon}}%</td>
                     <td class="align-middle">{{$data->tanggal_transaksi}}</td>
-                    @foreach ($data->detail as $detail)
-                    <td>{{$detail->produk->nama}}</td>
-                    <td>{{convertToRupiah($detail->produk->harga)}}</td>
-                    <td>{{$detail->kuantitas}}</td>
-                    @endforeach
+                    <td>
+                        <table style="width: 100%; border: 0px !important;">
+                            @foreach ($data->detail as $detail)
+                            <tr>
+                                <td>{{$detail->produk->nama}}</td>
+                                <td>{{convertToRupiah($detail->produk->harga)}}</td>
+                                <td>{{$detail->kuantitas}} pcs</td>
+                            </tr>
+                            @endforeach
+                        </table>
+                    </td>
                     <td class="align-middle">{{convertToRupiah($data->total)}}</td>
                 </tr>
             @endforeach
             <tr>
-                <td colspan="8">Total</td>
+                <td colspan="6">Total</td>
                 <td>{{convertToRupiah($total)}}</td>
             </tr>
         </table>
