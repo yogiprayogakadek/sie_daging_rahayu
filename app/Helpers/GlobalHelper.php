@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\ProdukAtribut;
+
     function account_image()
     {
         return asset(auth()->user()->foto);
@@ -50,7 +52,10 @@
     function menu()
     {
         $menu = [
-            'Kategori', 'Produk', 'Staff', 'Penjualan'
+            // 'Kategori', 
+            'Produk', 
+            // 'Staff', 
+            'Penjualan'
         ];
 
         return $menu;
@@ -59,10 +64,10 @@
     function RouteURL()
     {
         $url = [
-            0 => 'kategori.index',
-            1 => 'produk.index',
-            2 => 'staff.index',
-            3 => 'penjualan.index'
+            // 0 => 'kategori.index',
+            0 => 'produk.index',
+            // 2 => 'staff.index',
+            1 => 'penjualan.index'
         ];
 
         return $url;
@@ -73,6 +78,18 @@
         $a = 'App\Models\\' . $model;
         $total = $a::count();
         return $total;
+    }
+
+    function produkMinStok()
+    {
+        $stok = ProdukAtribut::with('produk')->selectRaw('min(stok) as min, produk_id')->first();
+        $arr = [
+            'stok' => $stok,
+            'produk' => $stok->produk->nama,
+            'route' => 'produk.index',
+        ];
+
+        return $arr;
     }
 
     function bulan()

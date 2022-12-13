@@ -14,6 +14,6 @@ class ProdukAtribut extends Model
 
     public function produk()
     {
-        return $this->belongsTo(Product::class, 'produk_id', 'id');
+        return $this->belongsTo(Produk::class, 'produk_id', 'id');
     }
 }

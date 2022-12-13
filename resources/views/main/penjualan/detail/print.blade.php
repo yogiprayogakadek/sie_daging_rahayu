@@ -28,6 +28,23 @@
                 font-weight: bold;
                 margin-top: -40px;
             }
+
+            .signature {
+                /* position: absolute; */
+                left: 1000px;
+                font-size: 15px;
+                margin-top: 20px;
+                font-weight: bold;
+                text-align: right;
+            }
+
+            .signature-margin {
+                margin-top: -15px;
+            }
+
+            .signature-name {
+                margin-top: 55px;
+            }
         </style>
     </head>
     <body id="printArea">
@@ -37,6 +54,19 @@
 
         <div class="company-name">
             <h2>Laporan Penjualan</h2>
+        </div>
+
+        <div class="detail">
+            <address>
+                <p class="m-t-30">
+                    <b>Dicetak oleh :</b>
+                    <i class="fa fa-user"></i> {{username()}}
+                </p>
+                <p class="m-t-30">
+                    <b>Tanggal Laporan :</b>
+                    <i class="fa fa-calendar"></i> {{date('d-m-Y')}}
+                </p>
+            </address>
         </div>
 
         <table class="table">
@@ -62,7 +92,7 @@
                             <tr>
                                 <td>{{$detail->produk->nama}}</td>
                                 <td>{{convertToRupiah($detail->produk->harga)}}</td>
-                                <td>{{$detail->kuantitas}} pcs</td>
+                                <td>{{$detail->kuantitas}} {{$detail->produk->satuan}}</td>
                             </tr>
                             @endforeach
                         </table>
@@ -75,5 +105,14 @@
                 <td>{{convertToRupiah($total)}}</td>
             </tr>
         </table>
+
+        <div class="signature">
+            <p>Denpasar, {{date('d-m-Y')}}</p>
+            <p class="signature-margin">Pemilik</p>
+            <p class="signature-margin">UD RAHAYU</p>
+
+            <p class="signature-name underline">I Kadek Yogi</p>
+            {{-- <p class="signature-margin underline">NIK. 1976.2020.01.001</p> --}}
+        </div>
     </body>
 </html>

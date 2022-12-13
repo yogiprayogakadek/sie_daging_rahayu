@@ -106,7 +106,12 @@ $(document).ready(function () {
                             if($('.'+key).val() == '') {
                                 $('.' + key).addClass('is-invalid')
                                 $('.error-' + key).html(value)
+                            } else {
+                                if(value == "Data Nama Produk sudah ada") {
+                                    $('.error-' + key).html(value)
+                                }
                             }
+                            
                         })
                         $.each(formName, function (i, field) {
                             $.inArray(field, errorName) == -1 ? $('.'+field).removeClass('is-invalid') : $('.'+field).addClass('is-invalid');
@@ -180,6 +185,10 @@ $(document).ready(function () {
                             if($('.'+key).val() == '') {
                                 $('.' + key).addClass('is-invalid')
                                 $('.error-' + key).html(value)
+                            } else {
+                                if(value == "Data Nama Produk sudah ada") {
+                                    $('.error-' + key).html(value)
+                                }
                             }
                         })
                         $.each(formName, function (i, field) {

@@ -31,9 +31,11 @@
                                 <button class="btn btn-info" id="btn-search">
                                     <i class="fa fa-search"></i>
                                 </button>
+                                @cannot('staff')
                                 <button class="btn btn-success btn-print">
                                     <i class="fa fa-print"></i>
                                 </button>
+                                @endcannot
                                 <button class="btn btn-primary" id="btn-refresh">
                                     <i class="fa fa-refresh"></i>
                                 </button>

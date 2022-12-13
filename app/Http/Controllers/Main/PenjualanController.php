@@ -17,20 +17,20 @@ class PenjualanController extends Controller
 
     public function search($slug)
     {
-        $produk = Produk::with('atribut')->where('nama', 'LIKE', '%' . $slug . '%')->get();
+        $produk = Produk::with('atribut')->where('nama', 'LIKE', '%' . $slug . '%')->where('status', true)->get();
 
         return response()->json($produk);
     }
 
     public function detail()
     {
-        $data = Penjualan::with('detail.produk', 'staff')->get();
+        $data = Penjualan::with('detail.produk', 'staff')->orderBy('created_at', 'DESC')->get();
         return view('main.penjualan.detail', compact('data'));
     }
 
     public function detailRender()
     {
-        $data = Penjualan::with('detail.produk', 'staff')->get();
+        $data = Penjualan::with('detail.produk', 'staff')->orderBy('created_at', 'DESC')->get();
         
         $view = [
             'data' => view('main.penjualan.detail.update', compact('data'))->render()
@@ -41,7 +41,7 @@ class PenjualanController extends Controller
 
     public function detailFilter($start, $end)
     {
-        $data = Penjualan::with('detail.produk', 'staff')->whereBetween('tanggal_transaksi', [$start, $end])->get();
+        $data = Penjualan::with('detail.produk', 'staff')->whereBetween('tanggal_transaksi', [$start, $end])->orderBy('created_at', 'DESC')->get();
         $view = [
             'data' => view('main.penjualan.detail.update', compact('data'))->render()
         ];

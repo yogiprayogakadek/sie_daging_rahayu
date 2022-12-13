@@ -13,8 +13,10 @@
         <table class="table table-stripped" id="tableData">
             <thead>
                 <th>No</th>
+                <th>Kategori</th>
                 <th>Nama Produk</th>
                 <th>Harga Produk</th>
+                <th>Satuan Produk</th>
                 <th>Foto</th>
                 <th>Stok</th>
                 <th>Produk Reject</th>
@@ -26,8 +28,10 @@
                 @foreach ($produk as $produk)
                     <tr>
                         <td>{{$loop->iteration}}</td>
+                        <td>{{$produk->kategori->nama}}</td>
                         <td>{{$produk->nama}}</td>
                         <td>{{convertToRupiah($produk->harga)}}</td>
+                        <td>{{$produk->satuan}}</td>
                         <td>
                             <img src="{{asset($produk->gambar)}}" width="70px">
                         </td>

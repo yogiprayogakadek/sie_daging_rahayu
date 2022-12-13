@@ -9,12 +9,20 @@ use App\Models\Pemasok;
 use App\Models\Produk;
 use App\Models\ProdukAtribut;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Image;
 
 class ProdukController extends Controller
 {
     public function index()
     {
+        $produk = DB::table('detail_penjualan')
+                        ->select('produk.nama')
+                        ->selectRaw('SUM(kuantitas) as kuantitas')
+                        ->join('produk', 'detail_penjualan.produk_id', 'produk.id')
+                        ->groupBy('produk_id')
+                        ->get();
+                        // dd(array_search(max(array_key($produk)), $produk));
         return view('main.produk.index');
     }
 
@@ -32,10 +40,13 @@ class ProdukController extends Controller
 
     public function create() 
     {
+        $satuan = [
+            'Kg', 'Ekor', 'Gram'
+        ];
         $pemasok = Pemasok::pluck('nama', 'id')->prepend('Pilih pemasok...', '')->toArray();
         $kategori = Kategori::pluck('nama', 'id')->prepend('Pilih kategori...', '')->toArray();
         $view = [
-            'data' => view('main.produk.create', compact('kategori', 'pemasok'))->render()
+            'data' => view('main.produk.create', compact('kategori', 'pemasok', 'satuan'))->render()
         ];
 
         return response()->json($view);
@@ -46,6 +57,7 @@ class ProdukController extends Controller
         try {
             $data = [
                 'nama' => $request->nama,
+                'satuan' => $request->satuan,
                 'kategori_id' => $request->kategori,
                 'harga' => preg_replace('/[^0-9]/', '', $request->harga),
                 'pemasok_id' => $request->pemasok,
@@ -91,11 +103,14 @@ class ProdukController extends Controller
 
     public function edit($id) 
     {
+        $satuan = [
+            'Kg', 'Ekor', 'Gram'
+        ];
         $produk = Produk::with('atribut')->where('id', $id)->first();
         $pemasok = Pemasok::pluck('nama', 'id')->prepend('Pilih pemasok...', '')->toArray();
         $kategori = Kategori::pluck('nama', 'id')->prepend('Pilih kategori...', '')->toArray();
         $view = [
-            'data' => view('main.produk.edit', compact('kategori', 'produk', 'pemasok'))->render()
+            'data' => view('main.produk.edit', compact('kategori', 'produk', 'pemasok', 'satuan'))->render()
         ];
 
         return response()->json($view);
@@ -107,6 +122,7 @@ class ProdukController extends Controller
             $produk = Produk::find($request->id);
             $data = [
                 'nama' => $request->nama,
+                'satuan' => $request->satuan,
                 'kategori_id' => $request->kategori,
                 'harga' => preg_replace('/[^0-9]/', '', $request->harga),
                 'status' => $request->status,

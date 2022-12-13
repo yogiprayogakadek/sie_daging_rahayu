@@ -1,4 +1,5 @@
-<table class="table table-stripped" id="tableData">
+<table class="table table-stripped">
+{{-- <table class="table table-stripped" id="tableData"> --}}
     <thead>
         <th>No</th>
         <th>Kode Transaksi</th>

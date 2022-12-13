@@ -33,6 +33,16 @@
                     <div class="invalid-feedback error-harga"></div>
                 </div>
                 <div class="form-group mt-2">
+                    <label for="satuan">Satuan Produk</label>
+                    <select name="satuan" id="satuan" class="form-control satuan">
+                        <option value="">Pilih satuan produk...</option>
+                        @foreach ($satuan as $value)
+                        <option value="{{$value}}">{{$value}}</option>
+                        @endforeach
+                    </select>
+                    <div class="invalid-feedback error-satuan"></div>
+                </div>
+                <div class="form-group mt-2">
                     <label for="gambar">Foto Produk</label>
                     <input type="file" class="form-control gambar" name="gambar" id="gambar">
                     <div class="invalid-feedback error-gambar"></div>
@@ -57,8 +67,6 @@
 </div>
 
 <script>
-    // $('.select2-show-search').select2({
-    //     minimumResultsForSearch: '',
-    //     // width: '100%'
-    // });
+    $("#harga").inputFilter(function(value) {
+        return /^\d*$/.test(value); }, "Tidak bisa negatif");
 </script>
