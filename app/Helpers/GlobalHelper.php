@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\ProdukAtribut;
+use Illuminate\Support\Facades\DB;
 
     function account_image()
     {
@@ -110,4 +111,47 @@ use App\Models\ProdukAtribut;
         ];
     
         return $bulan;
+    }
+
+    function search($array, $key, $value)
+    {
+        $results = array();
+
+        if (is_array($array)) {
+            if (isset($array[$key]) && $array[$key] == $value) {
+                $results[] = $array;
+            }
+
+            foreach ($array as $subarray) {
+                $results = array_merge($results, search($subarray, $key, $value));
+            }
+        }
+
+        return $results;
+    }
+
+    function bestSeller()
+    {
+        $data = DB::table('detail_penjualan')
+                ->select('produk.nama', DB::raw('SUM(kuantitas) as kuantitas'))
+                ->join('produk', 'detail_penjualan.produk_id', 'produk.id')
+                ->groupBy('produk_id')
+                ->get();
+        $arr = json_decode(json_encode($data), true);
+        $max = max(array_column($arr, 'kuantitas'));
+        
+        return search($arr, 'kuantitas', $max);
+    }
+
+    function worstSeller()
+    {
+        $data = DB::table('detail_penjualan')
+                ->select('produk.nama', DB::raw('SUM(kuantitas) as kuantitas'))
+                ->join('produk', 'detail_penjualan.produk_id', 'produk.id')
+                ->groupBy('produk_id')
+                ->get();
+        $arr = json_decode(json_encode($data), true);
+        $min = min(array_column($arr, 'kuantitas'));
+        
+        return search($arr, 'kuantitas', $min);
     }

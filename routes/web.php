@@ -93,10 +93,12 @@ Route::middleware('auth')->namespace('Main')->group(function() {
             Route::post('/update', 'update')->name('update');
             Route::post('/checkout', 'checkout')->name('checkout');
             Route::get('/remove/{id}', 'remove')->name('remove');
+            Route::get('/faktur/{penjualan_id}', 'faktur')->name('faktur');
             Route::get('/check-cart', 'check')->name('check');
     });
 
 });
+Route::get('/faktur/{penjualan_id}', 'Main\CartController@faktur')->name('faktur');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

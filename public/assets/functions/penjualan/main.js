@@ -331,7 +331,17 @@ $(document).ready(function () {
                             result.status
                         )
                         if (result.status == 'success') {
-                            location.reload();
+                            // location.reload();
+                            $.ajax({
+                                type: "GET",
+                                url: "/cart/faktur/"+result.penjualan_id,
+                                dataType: "json",
+                                success: function (response) {
+                                    setTimeout(() => {
+                                        location.reload();
+                                    }, 2000)
+                                }
+                            });
                         }
                     },
                     error: function() {

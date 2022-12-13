@@ -128,10 +128,13 @@ class CartController extends Controller
 
             clearCart();
 
+            // $this->printFaktur($penjualan->id);
+
             return response()->json([
                 'status' => 'success',
-                'message' => 'Pesanan berhasil diproses',
+                'message' => 'Pesanan berhasil diproses, mohon menunggu faktur belanja sedang diproses',
                 'title' => 'Berhasil',
+                'penjualan_id' => $penjualan->id,
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -146,5 +149,28 @@ class CartController extends Controller
     public function check()
     {
         dd(\Cart::session(auth()->user()->id)->getContent());
+    }
+
+    public function faktur($penjualan_id)
+    {
+        $total = 0;
+        $data = DetailPenjualan::with('produk')->where('penjualan_id', $penjualan_id)->get();
+        $penjualan = Penjualan::find($penjualan_id);
+        // foreach($data as $d) {
+        //     $total = $total + ($d->kuantitas * $d->produk->harga);
+        // }
+
+        $pdf = \PDF::loadView('main.penjualan.detail.faktur', [
+            'data' => $data,
+            'penjualan' => $penjualan,
+        ]);
+        // return $pdf->stream();
+        // $pdf->setPaper([0,0,609.4488,935.433], 'landscape');
+        return $pdf->stream('faktur-' . time() . '.pdf');
+        // $view = [
+        //     'data' => view('main.penjualan.detail.print', compact('data'))->render()
+        // ];
+        
+        // return view('main.penjualan.detail.faktur', compact('data', 'penjualan'));
     }
 }

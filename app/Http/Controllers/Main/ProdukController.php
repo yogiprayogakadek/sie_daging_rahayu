@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProdukRequest;
+use App\Models\DetailPenjualan;
 use App\Models\Kategori;
 use App\Models\Pemasok;
 use App\Models\Produk;
@@ -14,15 +15,15 @@ use Image;
 
 class ProdukController extends Controller
 {
+    public function searchSubArray(Array $array, $key, $value) {   
+        foreach ($array as $subarray){  
+            if (isset($subarray[$key]) && $subarray[$key] == $value)
+              return $subarray;       
+        } 
+    }
+
     public function index()
     {
-        $produk = DB::table('detail_penjualan')
-                        ->select('produk.nama')
-                        ->selectRaw('SUM(kuantitas) as kuantitas')
-                        ->join('produk', 'detail_penjualan.produk_id', 'produk.id')
-                        ->groupBy('produk_id')
-                        ->get();
-                        // dd(array_search(max(array_key($produk)), $produk));
         return view('main.produk.index');
     }
 

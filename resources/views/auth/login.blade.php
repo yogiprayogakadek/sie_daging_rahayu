@@ -26,23 +26,21 @@
                     <div class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center">
                         <div style="max-width: 25rem;">
                             <div class="mb-4">
-                                <img src="{{asset('assets/logo/logo.png')}}">
+                                <img src="{{asset('assets/logo/logo.png')}}" height="325">
                             </div>
                             <div class="mb-5">
                                 <h2 class="color-900">Sistem Informasi Eksekutif Penjualan Daging Pada UD Rahayu</h2>
                             </div>
 
                             <ul class="list-unstyled mb-5">
-                                <li class="mb-4">
+                                {{-- <li class="mb-4">
                                     <span class="d-block mb-1 fs-4 fw-light">All-in-one tool</span>
                                     <span class="color-600">Amazing Features to make your life easier & work
                                         efficient</span>
-                                </li>
+                                </li> --}}
                                 <li>
-                                    <span class="d-block mb-1 fs-4 fw-light">Easily add &amp; manage your
-                                        services</span>
-                                    <span class="color-600">It brings together your tasks, projects, timelines, files
-                                        and more</span>
+                                    <span class="d-block mb-1 fs-4 fw-light">Alamat</span>
+                                    <span class="color-600">Jalan Katjong Seleman nomor 1 Darmasaba, Abiansemal, Badung</span>
                                 </li>
                             </ul>
                         </div>
@@ -54,7 +52,7 @@
                                 @csrf
                                 <div class="col-12 text-center mb-1">
                                     <h1>Sign in</h1>
-                                    <img src="{{asset('assets/logo/logo.png')}}">
+                                    {{-- <img src="{{asset('assets/logo/logo.png')}}" height="325" > --}}
                                 </div>
                                 <div class="col-12">
                                     <div class="mb-2">
@@ -71,6 +69,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="mb-2">
+                                        <label class="form-label">Password</label>
                                         <input id="password"
                                             class="form-control form-control-lg @error('password') is-invalid @enderror"
                                             type="password" name="password" maxlength="10" placeholder="password">
