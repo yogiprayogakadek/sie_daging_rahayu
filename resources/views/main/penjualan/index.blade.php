@@ -57,6 +57,7 @@
                             <th>Nama Produk</th>
                             <th>Harga Produk</th>
                             <th>Kuantitas</th>
+                            <th>Satuan</th>
                             <th>Total</th>
                             <th></th>
                         </tr>
@@ -66,7 +67,7 @@
                             <tr>
                                 <td><img src="{{asset($cart->associatedModel['gambar'])}}" width="100px"></td>
                                 <td>{{$cart['name']}}</td>
-                                <td>{{convertToRupiah($cart['price'])}}</td>
+                                <td class="text-end">{{convertToRupiah($cart['price'])}}</td>
                                 {{-- <td>{{$cart['quantity']}}</td> --}}
                                 <td>
                                     <div class="handle-counter" id="handleCounter4"> 
@@ -79,6 +80,7 @@
                                         </button>
                                     </div>
                                 </td>
+                                <td>{{$cart->associatedModel['satuan']}}</td>
                                 <td>{{convertToRupiah($cart['quantity']*$cart['price'])}}</td>
                                 <td>
                                     <button class="btn btn-remove btn-danger" data-id="{{$cart['id']}}">

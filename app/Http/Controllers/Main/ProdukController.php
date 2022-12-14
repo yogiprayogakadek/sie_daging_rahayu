@@ -15,12 +15,6 @@ use Image;
 
 class ProdukController extends Controller
 {
-    public function searchSubArray(Array $array, $key, $value) {   
-        foreach ($array as $subarray){  
-            if (isset($subarray[$key]) && $subarray[$key] == $value)
-              return $subarray;       
-        } 
-    }
 
     public function index()
     {

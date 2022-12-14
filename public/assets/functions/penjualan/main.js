@@ -20,6 +20,7 @@ function cart(data, table)
                     '</button>' +
                 '</div>' +
             '</td>' +
+            '<td>' + value.associatedModel.satuan + '</td>' +
             '<td>' + convertToRupiah(value.quantity * value.price) + '</td>' +
             '<td>' + '<button type="button" class="btn btn-danger btn-remove" data-id="'+ value.id +'"><i class="fa fa-trash"></i></button>' + '</td>' +
         '</tr>';
@@ -337,11 +338,12 @@ $(document).ready(function () {
                                 url: "/cart/faktur/"+result.penjualan_id,
                                 dataType: "json",
                                 success: function (response) {
-                                    setTimeout(() => {
-                                        location.reload();
-                                    }, 2000)
+                                    // alert
                                 }
                             });
+                            setTimeout(() => {
+                                location.reload();
+                            }, 2000)
                         }
                     },
                     error: function() {

@@ -3,7 +3,7 @@
 
 <head>
     <style>
-        @page { size: 10cm 20cm; }
+        @page { size: 7cm 15cm; }
         @media print {
             .page-break {
                 display: block;
@@ -14,8 +14,8 @@
         #invoice-POS {
             box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
             padding: 2mm;
-            margin: 0 auto;
-            width: 44mm;
+            /* margin: 0 auto; */
+            width: mm;
             background: #FFF;
         }
 
@@ -122,6 +122,10 @@
 
         #invoice-POS #legalcopy {
             margin-top: 5mm;
+        }
+
+        .payment {
+            text-align: right;
         }
     </style>
 </head>

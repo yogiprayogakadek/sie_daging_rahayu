@@ -83,14 +83,19 @@ use Illuminate\Support\Facades\DB;
 
     function produkMinStok()
     {
-        $stok = ProdukAtribut::with('produk')->selectRaw('min(stok) as min, produk_id')->first();
-        $arr = [
+        $stok = ProdukAtribut::all()->min('stok');
+        $atribut = ProdukAtribut::with('produk')->where('stok', $stok)->get();
+        $produk = "";
+        foreach($atribut as $att) {
+            $produk .= $att->produk->nama . ', ';
+        }
+
+        $data = [
             'stok' => $stok,
-            'produk' => $stok->produk->nama,
-            'route' => 'produk.index',
+            'produk' => substr($produk, 0, -1),
         ];
 
-        return $arr;
+        return $data;
     }
 
     function bulan()

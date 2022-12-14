@@ -40,17 +40,17 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="mt-2">
-                                <h6 class="">Jumlah Stok Terkecil ({{produkMinStok()['produk']}})</h6>
-                                <h2 class="mb-0 number-font">{{produkMinStok()['stok']['min']}}</h2>
+                                <h6 class="">Jumlah Stok Terkecil</h6>
+                                <h2 class="mb-0 number-font">{{produkMinStok()['stok']}}</h2>
                             </div>
                         </div>
-                        <a href="{{route(produkMinStok()['route'])}}">
+                        {{-- <a href="{{route(produkMinStok()['route'])}}"> --}}
                             <span class="text-muted fs-12">
                                 <span class="text-secondary">
-                                    <i class="fe fe-arrow-right-circle text-secondary"></i> Detail
+                                    <i class="fe fe-arrow-right-circle text-secondary"></i> {{produkMinStok()['produk']}}
                                 </span>
                             </span>
-                        </a>
+                        {{-- </a> --}}
                     </div>
                 </div>
             </div>
