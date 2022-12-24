@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetailPenjualan;
 use App\Models\Penjualan;
 use App\Models\Produk;
 use Barryvdh\DomPDF\PDF;
@@ -70,5 +71,32 @@ class PenjualanController extends Controller
         // ];
         
         // return response()->json($view);
+    }
+
+    public function detailTransaksi($id)
+    {
+        $detail = DetailPenjualan::with('produk')->where('penjualan_id', $id)->get();
+        
+        $data = [];
+        foreach($detail as $key => $det) {
+            $data[] = [
+                'no' => ($key+1),
+                'produk' => $det->produk->nama,
+                'harga' => convertToRupiah($det->produk->harga),
+                'satuan' => $det->produk->satuan,
+                'kuantitas' => $det->kuantitas,
+                'total' => convertToRupiah($det->produk->harga * $det->kuantitas)
+            ];
+        }
+
+        // $total = 0;
+        // foreach($detail as $key => $d) {
+        //     $total += ($det->produk->harga * $det->kuantitas) - (($det->produk->harga * $det->kuantitas) * $);
+        // }
+        // dd($total);
+        // $data['total_bayar'] = 
+
+
+        return response()->json($data);
     }
 }

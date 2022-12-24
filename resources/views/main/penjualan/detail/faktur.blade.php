@@ -139,24 +139,49 @@
             <div class="logo">
                 <img src="{{public_path() . '\\'. 'assets/logo/logo.png'}}" height="70px">
             </div>
-            {{-- <div class="info">
-                <h2>UD. RAHAYU</h2>
-            </div> --}}
-            <!--End Info-->
+            <br>
+            <p style="margin-top: 10px; font-size: 8px;">
+                Jalan Katjong Seleman nomor 1 Darmasaba, Abiansemal, Badung <br>
+                08521361xxxx
+            </p>
         </center>
         <!--End InvoiceTop-->
 
-        <div id="mid">
+        {{-- <div id="mid">
             <div class="info">
                 <h2>Info Kontak</h2>
                 <p>
                     Alamat : Jalan Katjong Seleman nomor 1 Darmasaba, Abiansemal, Badung</br>
-                    {{-- Email : xxxxxx@gmail.com</br> --}}
                     Telephone : 08521361xxxx</br>
                 </p>
             </div>
-        </div>
+        </div> --}}
         <!--End Invoice Mid-->
+
+        <hr style="border-style: dotted;" />
+        @php
+            date_default_timezone_set('Asia/Kuala_Lumpur');
+        @endphp
+        <table style="width: 100%; font-size: 8px;">
+            <tr>
+                <td style="width: 40%;">Nomor Ref</td>
+                <td style="width: 60%;">: {{$penjualan->kode_transaksi}}</td>
+            </tr>
+            <tr>
+                <td style="width: 40%;">Tanggal</td>
+                <td style="width: 60%;">: {{date('d-m-Y')}}</td>
+            </tr>
+            <tr>
+                <td style="width: 40%;">Jam</td>
+                <td style="width: 60%;">: {{date('H:i:s')}}</td>
+            </tr>
+            <tr>
+                <td style="width: 40%;">Kasir</td>
+                <td style="width: 60%;">: {{username()}}</td>
+            </tr>
+        </table>
+
+        <hr style="border-style: dotted;" />
 
         <div id="bot">
 
@@ -187,18 +212,6 @@
                         </td>
                     </tr>
                     @endforeach
-
-                    {{-- <tr class="service">
-                        <td class="tableitem">
-                            <p class="itemtext">Kaki</p>
-                        </td>
-                        <td class="tableitem">
-                            <p class="itemtext">5</p>
-                        </td>
-                        <td class="tableitem">
-                            <p class="itemtext">RP.10.000,-</p>
-                        </td>
-                    </tr> --}}
 
                     <tr class="tabletitle">
                         <td></td>
@@ -232,11 +245,12 @@
 
                 </table>
             </div>
-            <!--End Table-->
+            
+            <hr style="border-style: dotted;" />
 
             <div id="legalcopy">
-                <p class="legal"><strong>Terimakasih Telah Berbelanja!</strong> Barang yang sudah dibeli tidak dapat
-                    dikembalikan. Jangan lupa berkunjung kembali
+                <p class="legal" style="text-align: center">
+                    <b>TERIMA KASIH</b> <br> Kami tunggu kedatangannya kembali
                 </p>
             </div>
 

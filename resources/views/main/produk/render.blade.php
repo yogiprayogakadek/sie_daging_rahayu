@@ -19,7 +19,7 @@
                 <th>Foto</th>
                 <th>Stok</th>
                 <th>Produk Reject</th>
-                <th>Harga Produk</th>
+                <th width="3%">Harga Produk (Rp)</th>
                 @can('admin')
                 <th>Aksi</th>
                 @endcan
@@ -36,7 +36,7 @@
                         </td>
                         <td>{{$produk->atribut != null ? $produk->atribut->stok : 0}}</td>
                         <td>{{$produk->atribut != null ? $produk->atribut->produk_rejected : 0}}</td>
-                        <td class="text-end">{{convertToRupiah($produk->harga)}}</td>
+                        <td class="text-end">{{rupiah($produk->harga)}}</td>
                         @can('admin')
                         <td>
                             <button class="btn btn-success btn-edit" data-id="{{$produk->id}}">

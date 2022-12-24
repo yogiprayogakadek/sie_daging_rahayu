@@ -84,7 +84,7 @@
                     <td class="align-middle">{{$loop->iteration}}</td>
                     <td class="align-middle">{{$data->kode_transaksi}}</td>
                     <td class="align-middle">{{$data->staff->nama}}</td>
-                    <td class="align-middle">{{$data->diskon}}%</td>
+                    <td class="align-middle">{{$data->diskon}}% {{$data->diskon > 0 ? "(" . convertToRupiah($data->total*($data->diskon/100)) . ")" : ''}}</td>
                     <td class="align-middle">{{$data->tanggal_transaksi}}</td>
                     <td>
                         <table style="width: 100%; border: 0px !important;">

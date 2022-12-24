@@ -80,6 +80,7 @@ Route::middleware('auth')->namespace('Main')->group(function() {
             Route::get('/print/{start_date}/{end_date}', 'print')->name('print');
             
             // detail
+            Route::get('/detail-transaksi/{id}', 'detailTransaksi')->name('detail.transaksi');
             Route::get('/detail', 'detail')->name('detail');
             Route::get('/detail/render', 'detailRender')->name('detail.render');
             Route::get('/detail/filter/{start_date}/{end_date}', 'detailFilter')->name('detail.filter');

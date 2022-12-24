@@ -23,6 +23,11 @@ use Illuminate\Support\Facades\DB;
         return 'Rp' . number_format($jumlah, 0, '.', '.');
     }
 
+    function rupiah($jumlah)
+    {
+        return number_format($jumlah, 0, '.', '.');
+    }
+
     function cart()
     {
         return \Cart::session(auth()->user()->id)->getContent();
