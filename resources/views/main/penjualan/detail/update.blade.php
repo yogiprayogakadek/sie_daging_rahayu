@@ -17,7 +17,7 @@
                 <td>{{$data->staff->nama}}</td>
                 <td> {{rupiah($data->total*($data->diskon/100))}} ({{$data->diskon}}%)</td>
                 <td>{{$data->tanggal_transaksi}}</td>
-                <td>{{rupiah($data->total)}}</td>
+                <td class="text-end">{{rupiah($data->total)}}</td>
                 <td>
                     <button type="button" class="btn btn-view btn-primary" data-id="{{$data->id}}">
                         <i class="fa fa-eye"></i> Lihat

@@ -119,7 +119,7 @@
             <p class="signature-margin">Pemilik</p>
             <p class="signature-margin">UD RAHAYU</p>
 
-            <p class="signature-name underline">I Kadek Yogi</p>
+            <p class="signature-name underline">I Wayan Wetra</p>
             {{-- <p class="signature-margin underline">NIK. 1976.2020.01.001</p> --}}
         </div>
     </body>

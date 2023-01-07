@@ -142,7 +142,7 @@
             <br>
             <p style="margin-top: 10px; font-size: 8px;">
                 Jalan Katjong Seleman nomor 1 Darmasaba, Abiansemal, Badung <br>
-                08521361xxxx
+                085213615645
             </p>
         </center>
         <!--End InvoiceTop-->
