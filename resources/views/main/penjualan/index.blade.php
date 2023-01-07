@@ -136,7 +136,7 @@
                                 <td class="text-end total-discount">0%</td>
                             </tr>
                             <tr>
-                                <td class="text-start">Potongan</td>
+                                <td class="text-start"></td>
                                 <td class="text-end price-cut">0</td>
                             </tr>
                             <tr>

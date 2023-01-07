@@ -55,6 +55,7 @@
         #invoice-POS #bot {
             /* Targets all id with 'col-' */
             border-bottom: 1px solid #EEE;
+            font-size: 6px;
         }
 
         #invoice-POS #top {
