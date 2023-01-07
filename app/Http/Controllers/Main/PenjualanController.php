@@ -82,10 +82,10 @@ class PenjualanController extends Controller
             $data[] = [
                 'no' => ($key+1),
                 'produk' => $det->produk->nama,
-                'harga' => convertToRupiah($det->produk->harga),
+                'harga' => rupiah($det->produk->harga),
                 'satuan' => $det->produk->satuan,
                 'kuantitas' => $det->kuantitas,
-                'total' => convertToRupiah($det->produk->harga * $det->kuantitas)
+                'total' => rupiah($det->produk->harga * $det->kuantitas)
             ];
         }
 

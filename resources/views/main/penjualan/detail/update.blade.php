@@ -5,8 +5,8 @@
         <th>Kode Transaksi</th>
         <th>Staff</th>
         <th>Diskon</th>
-        <th>Total</th>
         <th>Tanggal Transaksi</th>
+        <th>Total (Rp)</th>
         <th></th>
     </thead>
     <tbody>
@@ -15,9 +15,9 @@
                 <td>{{$loop->iteration}}</td>
                 <td>{{$data->kode_transaksi}}</td>
                 <td>{{$data->staff->nama}}</td>
-                <td>{{$data->diskon}}%</td>
-                <td>{{convertToRupiah($data->total)}}</td>
+                <td> {{rupiah($data->total*($data->diskon/100))}} ({{$data->diskon}}%)</td>
                 <td>{{$data->tanggal_transaksi}}</td>
+                <td>{{rupiah($data->total)}}</td>
                 <td>
                     <button type="button" class="btn btn-view btn-primary" data-id="{{$data->id}}">
                         <i class="fa fa-eye"></i> Lihat
@@ -31,7 +31,7 @@
 <!-- Modal Body -->
 <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
 <div class="modal fade" id="modalView" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalTitleId">Detail Transaksi</h5>
@@ -44,9 +44,9 @@
                             <th>No</th>
                             <th>Produk</th>
                             <th>Satuan</th>
-                            <th>Harga</th>
+                            <th>Harga (Rp)</th>
                             <th>Kuantitas</th>
-                            <th>Total</th>
+                            <th>Total (Rp)</th>
                         </tr>
                     </thead>
                     <tbody></tbody>

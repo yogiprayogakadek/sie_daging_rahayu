@@ -98,8 +98,13 @@ Route::middleware('auth')->namespace('Main')->group(function() {
             Route::get('/check-cart', 'check')->name('check');
     });
 
+    
 });
 Route::get('/faktur/{penjualan_id}', 'Main\CartController@faktur')->name('faktur');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/test', function() {
+    return \App\Models\DetailPenjualan::all();
+});

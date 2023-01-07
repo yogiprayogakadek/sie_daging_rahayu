@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 
     function convertToRupiah($jumlah)
     {
-        return 'Rp' . number_format($jumlah, 0, '.', '.');
+        return 'Rp ' . number_format($jumlah, 0, '.', '.');
     }
 
     function rupiah($jumlah)

@@ -76,7 +76,7 @@
                 <th>Staff</th>
                 <th>Diskon</th>
                 <th>Tanggal Transaksi</th>
-                <th>Detail Transaksi</th>
+                <th>Produk</th>
                 <th>Total Transaksi</th>
             </tr>
             @foreach ($data as $data)
@@ -86,8 +86,8 @@
                     <td class="align-middle">{{$data->staff->nama}}</td>
                     <td class="align-middle">{{$data->diskon}}% {{$data->diskon > 0 ? "(" . convertToRupiah($data->total*($data->diskon/100)) . ")" : ''}}</td>
                     <td class="align-middle">{{$data->tanggal_transaksi}}</td>
-                    <td>
-                        <table style="width: 100%; border: 0px !important;">
+                    <td style="text-align: left !important;">
+                        {{-- <table style="width: 100%; border: 0px !important;">
                             @foreach ($data->detail as $detail)
                             <tr>
                                 <td>{{$detail->produk->nama}}</td>
@@ -95,7 +95,15 @@
                                 <td>{{$detail->kuantitas}} {{$detail->produk->satuan}}</td>
                             </tr>
                             @endforeach
-                        </table>
+                        </table> --}}
+
+                        @foreach ($data->detail as $detail)
+                        <ul>
+                            <li>{{$detail->produk->nama}} ({{$detail->kuantitas}} {{$detail->produk->satuan}})</li>
+                            {{-- <li>{{convertToRupiah($detail->produk->harga)}}</li> --}}
+                            {{-- <li>{{$detail->kuantitas}} {{$detail->produk->satuan}}</li> --}}
+                        </ul>
+                        @endforeach
                     </td>
                     <td class="align-middle">{{convertToRupiah($data->total)}}</td>
                 </tr>

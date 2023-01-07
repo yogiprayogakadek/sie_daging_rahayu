@@ -216,14 +216,14 @@
                     <tr class="tabletitle">
                         <td></td>
                         <td class="Rate">
-                            <h2>Diskon</h2>
+                            <h2>Diskon ({{$penjualan->diskon}} %)</h2>
                         </td>
                         <td class="payment">
-                            <h2>{{$penjualan->diskon}} %</h2>
+                            <h2>{{convertToRupiah($penjualan->total * ($penjualan->diskon/100))}},-</h2>
                         </td>
                     </tr>
 
-                    <tr class="tabletitle">
+                    {{-- <tr class="tabletitle">
                         <td></td>
                         <td class="Rate">
                             <h2>Potongan</h2>
@@ -231,7 +231,7 @@
                         <td class="payment">
                             <h2>{{convertToRupiah($penjualan->total * ($penjualan->diskon/100))}},-</h2>
                         </td>
-                    </tr>
+                    </tr> --}}
 
                     <tr class="tabletitle">
                         <td></td>
