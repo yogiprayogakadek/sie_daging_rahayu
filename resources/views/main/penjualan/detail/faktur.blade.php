@@ -55,7 +55,7 @@
         #invoice-POS #bot {
             /* Targets all id with 'col-' */
             border-bottom: 1px solid #EEE;
-            font-size: 6px;
+            font-size: 7pt;
         }
 
         #invoice-POS #top {
@@ -220,7 +220,7 @@
                             <h2>Diskon ({{$penjualan->diskon}} %)</h2>
                         </td>
                         <td class="payment">
-                            <h2>{{convertToRupiah($penjualan->total * ($penjualan->diskon/100))}},-</h2>
+                            <h2>{{rupiah($penjualan->total * ($penjualan->diskon/100))}},-</h2>
                         </td>
                     </tr>
 
@@ -230,7 +230,7 @@
                             <h2>Potongan</h2>
                         </td>
                         <td class="payment">
-                            <h2>{{convertToRupiah($penjualan->total * ($penjualan->diskon/100))}},-</h2>
+                            <h2>{{rupiah($penjualan->total * ($penjualan->diskon/100))}},-</h2>
                         </td>
                     </tr> --}}
 
@@ -240,7 +240,27 @@
                             <h2>Total</h2>
                         </td>
                         <td class="payment">
-                            <h2>{{convertToRupiah($penjualan->total - ($penjualan->total * ($penjualan->diskon/100)))}},-</h2>
+                            <h2>{{rupiah($penjualan->total - ($penjualan->total * ($penjualan->diskon/100)))}},-</h2>
+                        </td>
+                    </tr>
+
+                    <tr class="tabletitle">
+                        <td></td>
+                        <td class="Rate">
+                            <h2>Uang dibayar</h2>
+                        </td>
+                        <td class="payment">
+                            <h2>{{$tunai}},-</h2>
+                        </td>
+                    </tr>
+
+                    <tr class="tabletitle">
+                        <td></td>
+                        <td class="Rate">
+                            <h2>Kembalian</h2>
+                        </td>
+                        <td class="payment">
+                            <h2>{{$kembalian}},-</h2>
                         </td>
                     </tr>
 

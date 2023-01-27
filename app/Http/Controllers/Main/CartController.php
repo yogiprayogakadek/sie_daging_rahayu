@@ -151,8 +151,13 @@ class CartController extends Controller
         dd(\Cart::session(auth()->user()->id)->getContent());
     }
 
-    public function faktur($penjualan_id)
+    public function faktur($query)
     {
+        $penjualan = explode('&', $query);
+        $penjualan_id = $penjualan[0];
+        $tunai = $penjualan[1];
+        $kembalian = $penjualan[2];
+
         $total = 0;
         $data = DetailPenjualan::with('produk')->where('penjualan_id', $penjualan_id)->get();
         $penjualan = Penjualan::find($penjualan_id);
@@ -163,9 +168,9 @@ class CartController extends Controller
         $pdf = \PDF::loadView('main.penjualan.detail.faktur', [
             'data' => $data,
             'penjualan' => $penjualan,
+            'tunai' => $tunai,
+            'kembalian' => $kembalian,
         ]);
-        // return $pdf->stream();
-        // $pdf->setPaper([0,0,609.4488,935.433], 'landscape');
         return $pdf->stream('faktur-' . time() . '.pdf');
         // $view = [
         //     'data' => view('main.penjualan.detail.print', compact('data'))->render()

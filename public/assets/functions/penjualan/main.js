@@ -1,60 +1,82 @@
-function cart(data, table)
-{
+function cart(data, table) {
     data != null ? $('.block-hide').prop('hidden', false) : $('.block-hide').prop('hidden', true);
     console.log(data)
-    $(table+' tbody').empty()
-    $.each(data, function (index, value) { 
+    $(table + ' tbody').empty()
+    $.each(data, function (index, value) {
         var tr_list = '<tr>' +
             '<td>' + '<img src="' + assets(value.associatedModel.gambar) + '" width=100px/>' + '</td>' +
             '<td>' + value.name + '</td>' +
             '<td>' + convertToRupiah(value.price) + '</td>' +
             // '<td>' + value.quantity + '</td>' +
             '<td>' +
-                '<div class="handle-counter" id="handleCounter4">' +
-                    '<button type="button" class="btn btn-white lh-2 shadow-none '+(value.quantity == 1 ? "btn-remove" : "counter-minus")+'" data-id="'+value.id+'">' +
-                        '<i class="fa fa-minus text-muted"></i>' +
-                    '</button>' +
-                    '<input id=qty type="text" value="'+value.quantity+'" class="qty form-control-sm text-center" name="qty" data-id="' + value.id + '">' +
-                    '<button type="button" class="counter-plus btn btn-white lh-2 shadow-none" data-id="' + value.id + '">' +
-                        '<i class="fa fa-plus text-muted"></i>' +
-                    '</button>' +
-                '</div>' +
+            '<div class="handle-counter" id="handleCounter4">' +
+            '<button type="button" class="btn btn-white lh-2 shadow-none ' + (value.quantity == 1 ? "btn-remove" : "counter-minus") + '" data-id="' + value.id + '">' +
+            '<i class="fa fa-minus text-muted"></i>' +
+            '</button>' +
+            '<input id=qty type="text" value="' + value.quantity + '" class="qty form-control-sm text-center" name="qty" data-id="' + value.id + '">' +
+            '<button type="button" class="counter-plus btn btn-white lh-2 shadow-none" data-id="' + value.id + '">' +
+            '<i class="fa fa-plus text-muted"></i>' +
+            '</button>' +
+            '</div>' +
             '</td>' +
             '<td>' + value.associatedModel.satuan + '</td>' +
             '<td>' + convertToRupiah(value.quantity * value.price) + '</td>' +
-            '<td>' + '<button type="button" class="btn btn-danger btn-remove" data-id="'+ value.id +'"><i class="fa fa-trash"></i></button>' + '</td>' +
-        '</tr>';
+            '<td>' + '<button type="button" class="btn btn-danger btn-remove" data-id="' + value.id + '"><i class="fa fa-trash"></i></button>' + '</td>' +
+            '</tr>';
 
         $('#tableCart tbody').append(tr_list);
     });
 }
 
+function toRupiah(number) {
+    reverse = number.toString().split('').reverse().join(''),
+        ribuan = reverse.match(/\d{1,3}/g);
+    ribuan = ribuan.join('.').split('').reverse().join('');
+
+    return "Rp. " + ribuan;
+}
+
+function formatRupiah(angka, prefix){
+    var number_string = angka.replace(/[^,\d]/g, '').toString(),
+    split   		= number_string.split(','),
+    sisa     		= split[0].length % 3,
+    rupiah     		= split[0].substr(0, sisa),
+    ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+
+    // tambahkan titik jika yang di input sudah menjadi angka ribuan
+    if(ribuan){
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+    }
+
+    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+    return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+}
+
+
 // check if session discount exists
-function discount()
-{
-    if($.session.get("discount") != undefined) {
+function discount() {
+    if ($.session.get("discount") != undefined) {
         $('.total-discount').text($.session.get("discount") + '%');
     } else {
         $('.total-discount').text('0%');
     }
 }
 
-function totalPrice()
-{
+function totalPrice() {
     let subtotal = retnum($('.sub-total').text());
     let totalDiscount = retnum($('.total-discount').text());
-    
-    total = subtotal - (subtotal * (totalDiscount/100));
+
+    total = subtotal - (subtotal * (totalDiscount / 100));
 
     $('.total-price').text(convertToRupiah(total));
 }
 
-function priceCut()
-{
+function priceCut() {
     let subtotal = retnum($('.sub-total').text());
     let totalDiscount = retnum($('.total-discount').text());
 
-    total = subtotal * (totalDiscount/100);
+    total = subtotal * (totalDiscount / 100);
 
     $('.price-cut').text(convertToRupiah(total));
 }
@@ -70,9 +92,9 @@ $(document).ready(function () {
     // set price cut
     priceCut();
 
-    $('body').on('click', '.btn-search', function() {
+    $('body').on('click', '.btn-search', function () {
         var slug = $('input[name=slug]').val()
-        if(slug == '') {
+        if (slug == '') {
             Swal.fire(
                 'Info',
                 'Mohon untuk mengisi data pencarian...',
@@ -81,18 +103,18 @@ $(document).ready(function () {
 
             return false;
         }
-        $.get("/penjualan/cari-produk/"+slug, function (data) {
+        $.get("/penjualan/cari-produk/" + slug, function (data) {
             $('#tableProduct tbody').empty();
-            if(data.length > 0) {
-                $.each(data, function (index, value) { 
+            if (data.length > 0) {
+                $.each(data, function (index, value) {
                     var tr_list = '<tr>' +
-                                    '<td>' + '<img src="' + assets(value.gambar) + '" width=100px/>' + '</td>' +
-                                    '<td>' + value.nama + '</td>' +
-                                    '<td>' + convertToRupiah(value.harga) + '</td>' +
-                                    '<td>' + (value.atribut != null ? value.atribut.stok : 0) + '</td>' +
-                                    '<td>' + '<button type="button" class="btn btn-primary btn-add" data-id="'+ value.id +'"><i class="fa fa-plus"></i></button>' + '</td>' +
-                                '</tr>';
-                    
+                        '<td>' + '<img src="' + assets(value.gambar) + '" width=100px/>' + '</td>' +
+                        '<td>' + value.nama + '</td>' +
+                        '<td>' + convertToRupiah(value.harga) + '</td>' +
+                        '<td>' + (value.atribut != null ? value.atribut.stok : 0) + '</td>' +
+                        '<td>' + '<button type="button" class="btn btn-primary btn-add" data-id="' + value.id + '"><i class="fa fa-plus"></i></button>' + '</td>' +
+                        '</tr>';
+
                     $('#tableProduct tbody').append(tr_list);
                 });
             } else {
@@ -102,7 +124,7 @@ $(document).ready(function () {
         });
     });
 
-    $('body').on('click', '.btn-add', function() {
+    $('body').on('click', '.btn-add', function () {
         var id = $(this).data('id');
         Swal.fire({
             title: 'Tambah ke keranjang?',
@@ -142,7 +164,7 @@ $(document).ready(function () {
         })
     });
 
-    $('body').on('click', '.btn-remove', function() {
+    $('body').on('click', '.btn-remove', function () {
         var id = $(this).data('id');
         Swal.fire({
             title: 'Anda yakin?',
@@ -166,12 +188,12 @@ $(document).ready(function () {
                         )
                         if (result.status == 'success') {
                             $('#tableCart tbody').empty()
-                            if(result.cart.length == 0) {
+                            if (result.cart.length == 0) {
                                 var tr_list = '<tr>' +
-                                                '<td colspan="6" class="text-center">' +
-                                                    '<h3>Tidak ada data pada keranjang...</h3>' +
-                                                '</td>' +
-                                                '</tr>';
+                                    '<td colspan="6" class="text-center">' +
+                                    '<h3>Tidak ada data pada keranjang...</h3>' +
+                                    '</td>' +
+                                    '</tr>';
                                 $('#tableCart tbody').append(tr_list);
                                 $('.block-hide').prop('hidden', true)
                                 return false;
@@ -187,12 +209,12 @@ $(document).ready(function () {
         })
     });
 
-    $('body').on('click', '.btn-clear', function() {
+    $('body').on('click', '.btn-clear', function () {
         $('input[name=slug]').val('')
         $('#tableProduct tbody').empty();
     });
 
-    $('body').on('click', '.counter-plus', function() {
+    $('body').on('click', '.counter-plus', function () {
         var id = $(this).data('id');
         var qty = parseInt($(this).parent().find('.qty').val()) + 1;
         var cat = 'plus';
@@ -216,12 +238,16 @@ $(document).ready(function () {
                     $('#tableTotalCart').find('.sub-total').text(result.subtotal)
                     totalPrice();
                     priceCut();
+
+                    $('#tunai').val('')
+                    $('#kembalian').empty();
+                    $('.btn-checkout').prop('disabled', true);
                 }
             }
         });
     });
 
-    $('body').on('click', '.counter-minus', function() {
+    $('body').on('click', '.counter-minus', function () {
         var id = $(this).data('id');
         var qty = parseInt($(this).parent().find('.qty').val()) - 1;
         var cat = 'minus';
@@ -246,22 +272,26 @@ $(document).ready(function () {
                     $('#tableTotalCart').find('.sub-total').text(result.subtotal)
                     totalPrice();
                     priceCut();
+
+                    $('#tunai').val('')
+                    $('#kembalian').empty();
+                    $('.btn-checkout').prop('disabled', true);
                 }
             }
         });
     });
 
-    $("input[name=discount]").inputFilter(function(value) {
-        return /^\d*$/.test(value) && (value === "" || parseInt(value) > 0 ) && (value === "" || parseInt(value) <= 100 ); 
+    $("input[name=discount]").inputFilter(function (value) {
+        return /^\d*$/.test(value) && (value === "" || parseInt(value) > 0) && (value === "" || parseInt(value) <= 100);
     }, "Hanya mengandung angka");
 
-    $("input[name=qty]").inputFilter(function(value) {
-        return /^\d*$/.test(value) && (value === "" || parseInt(value) > 0 ); 
+    $("input[name=qty]").inputFilter(function (value) {
+        return /^\d*$/.test(value) && (value === "" || parseInt(value) > 0);
     }, "Hanya mengandung angka 0 - 100");
 
-    $('body').on('click', '.btn-discount', function() {
+    $('body').on('click', '.btn-discount', function () {
         let discount = $('input[name=discount]').val()
-        if(discount == '') {
+        if (discount == '') {
             Swal.fire(
                 'Info',
                 'Mohon untuk mengisi diskon sebelum diterapkan...',
@@ -270,8 +300,8 @@ $(document).ready(function () {
 
             return false;
         }
-        
-        $(function() {
+
+        $(function () {
             $.session.set("discount", discount);
         });
 
@@ -285,10 +315,14 @@ $(document).ready(function () {
         $('.total-discount').text(discount + '%');
         totalPrice();
         priceCut();
+
+        $('#tunai').val('')
+        $('#kembalian').empty();
+        $('.btn-checkout').prop('disabled', true);
     });
 
-    $('body').on('click', '.btn-remove-discount', function() {
-        $(function() {
+    $('body').on('click', '.btn-remove-discount', function () {
+        $(function () {
             $.session.remove("discount");
         });
 
@@ -301,9 +335,12 @@ $(document).ready(function () {
         $('.total-discount').text('0%');
         totalPrice();
         priceCut();
+        $('#tunai').val('')
+        $('#kembalian').empty();
+        $('.btn-checkout').prop('disabled', true);
     });
 
-    $('body').on('click', '.btn-checkout', function() {
+    $('body').on('click', '.btn-checkout', function () {
         Swal.fire({
             title: 'Proses?',
             icon: 'warning',
@@ -314,10 +351,12 @@ $(document).ready(function () {
             cancelButtonText: 'Batal',
         }).then((result) => {
             if (result.value) {
+                let tunai = $('body #tunai').val();
+                let kembalian = $('body #kembalian').text();
                 var formData = new FormData();
                 formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
-                formData.append('total', $('body .total-price').text().replace(/[^0-9]/g,''));
-                formData.append('discount', $('body .total-discount').text().replace(/[^0-9]/g,''));
+                formData.append('total', $('body .total-price').text().replace(/[^0-9]/g, ''));
+                formData.append('discount', $('body .total-discount').text().replace(/[^0-9]/g, ''));
                 formData.append('member_id', $('body #member_id').val());
                 $.ajax({
                     url: '/cart/checkout',
@@ -332,10 +371,10 @@ $(document).ready(function () {
                             result.status
                         )
                         if (result.status == 'success') {
-                            // location.reload();
+                            let data = result.penjualan_id+'&'+tunai+'&'+kembalian
                             $.ajax({
                                 type: "GET",
-                                url: "/cart/faktur/"+result.penjualan_id,
+                                url: "/cart/faktur/" + data,
                                 dataType: "json",
                                 success: function (response) {
                                     // alert
@@ -346,15 +385,19 @@ $(document).ready(function () {
                             }, 2000)
                         }
                     },
-                    error: function() {
-                        Swal.fire({ icon: 'error', title: 'Maaf...', text: 'Terjadi kesalahan!' })
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Maaf...',
+                            text: 'Terjadi kesalahan!'
+                        })
                     }
                 });
             }
         })
     });
 
-    $('body').on('blur', '.qty', function() {
+    $('body').on('blur', '.qty', function () {
         var id = $(this).data('id');
         // var qty = parseInt($(this).parent().find('.qty').val()) + 1;
         var qty = parseInt($(this).parent().find('.qty').val());
@@ -382,5 +425,23 @@ $(document).ready(function () {
                 }
             }
         });
+    });
+
+    $('body').on('keyup', '#tunai', function () {
+        $('#tunai').val(formatRupiah($('#tunai').val(), 'Rp. '));
+    })
+
+    $('.btn-checkout').prop('disabled', true);
+    $('body').on('change', '#tunai', function () {
+        let totalPrice = parseInt($('body .total-price').text().replace(/[^0-9]/g, ''));
+        let tunai = parseInt($('body #tunai').val().replace(/[^0-9]/g, ''));
+        let total = tunai - totalPrice;
+        if (tunai >= totalPrice && tunai != 0) {
+            $('.btn-checkout').prop('disabled', false);
+            $('#kembalian').empty().append('<span>' + toRupiah(total) + '</span>');
+        } else {
+            $('#kembalian').empty();
+            $('.btn-checkout').prop('disabled', true);
+        }
     });
 });
