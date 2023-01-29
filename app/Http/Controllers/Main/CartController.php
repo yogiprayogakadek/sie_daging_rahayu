@@ -168,8 +168,8 @@ class CartController extends Controller
         $pdf = \PDF::loadView('main.penjualan.detail.faktur', [
             'data' => $data,
             'penjualan' => $penjualan,
-            'tunai' => $tunai,
-            'kembalian' => $kembalian,
+            'tunai' => rupiah($tunai),
+            'kembalian' => rupiah($kembalian),
         ]);
         return $pdf->stream('faktur-' . time() . '.pdf');
         // $view = [

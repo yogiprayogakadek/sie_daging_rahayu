@@ -208,8 +208,8 @@
                         <td class="tableitem">
                             <p class="itemtext">{{$item->kuantitas}}</p>
                         </td>
-                        <td class="tableitem">
-                            <p class="itemtext">{{convertToRupiah($item->kuantitas * $item->produk->harga)}},-</p>
+                        <td class="tableitem" style="text-align: right;">
+                            <p class="itemtext">{{rupiah($item->kuantitas * $item->produk->harga)}},-</p>
                         </td>
                     </tr>
                     @endforeach

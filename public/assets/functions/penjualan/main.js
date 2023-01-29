@@ -351,8 +351,8 @@ $(document).ready(function () {
             cancelButtonText: 'Batal',
         }).then((result) => {
             if (result.value) {
-                let tunai = $('body #tunai').val();
-                let kembalian = $('body #kembalian').text();
+                let tunai = $('body #tunai').val().replace(/[^0-9]/g, '');
+                let kembalian = $('body #kembalian').text().replace(/[^0-9]/g, '');
                 var formData = new FormData();
                 formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
                 formData.append('total', $('body .total-price').text().replace(/[^0-9]/g, ''));
@@ -377,7 +377,9 @@ $(document).ready(function () {
                                 url: "/cart/faktur/" + data,
                                 dataType: "json",
                                 success: function (response) {
-                                    // alert
+                                    $(function () {
+                                        $.session.remove("discount");
+                                    });
                                 }
                             });
                             setTimeout(() => {
