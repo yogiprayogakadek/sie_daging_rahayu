@@ -16,7 +16,7 @@
                 <td>{{$data->kode_transaksi}}</td>
                 <td>{{$data->staff->nama}}</td>
                 <td> {{rupiah($data->total*($data->diskon/100))}} ({{$data->diskon}}%)</td>
-                <td>{{$data->tanggal_transaksi}}</td>
+                <td>{{date_format(date_create($data->tanggal_transaksi), "d-m-Y")}}</td>
                 <td class="text-end">{{rupiah($data->total)}}</td>
                 <td>
                     <button type="button" class="btn btn-view btn-primary" data-id="{{$data->id}}">
@@ -92,9 +92,9 @@
                                 '<td>' + value.no + '</td>' +
                                 '<td>' + value.produk + '</td>' +
                                 '<td>' + value.satuan + '</td>' +
-                                '<td>' + value.harga + '</td>' +
+                                '<td class="text-end">' + value.harga + '</td>' +
                                 '<td>' + value.kuantitas + '</td>' +
-                                '<td>' + value.total + '</td>' +
+                                '<td class="text-end">' + value.total + '</td>' +
                             '</tr>';
 
                 $('#tableTransaksi tbody').append(tr_list);

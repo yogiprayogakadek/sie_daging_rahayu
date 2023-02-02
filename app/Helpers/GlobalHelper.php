@@ -52,7 +52,8 @@ use Illuminate\Support\Facades\DB;
 
     function generateTransactionCode()
     {
-        return "TRANSID-" . strtoupper(uniqid());
+        return "TRANSID-" . bin2hex(random_bytes(4));
+        // return "TRANSID-" . strtoupper(uniqid());
     }
 
     function menu()

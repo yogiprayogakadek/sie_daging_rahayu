@@ -33,7 +33,7 @@ function toRupiah(number) {
         ribuan = reverse.match(/\d{1,3}/g);
     ribuan = ribuan.join('.').split('').reverse().join('');
 
-    return "Rp. " + ribuan;
+    return "Rp " + ribuan;
 }
 
 function formatRupiah(angka, prefix){
@@ -50,7 +50,7 @@ function formatRupiah(angka, prefix){
     }
 
     rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-    return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    return prefix == undefined ? rupiah : (rupiah ? 'Rp ' + rupiah : '');
 }
 
 
