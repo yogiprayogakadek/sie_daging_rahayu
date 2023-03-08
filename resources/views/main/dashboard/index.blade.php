@@ -106,7 +106,7 @@
                                 <option value="product" selected>Berdasarkan Produk</option>
                                 <option value="category">Berdasarkan Kategori</option>
                             </select>
-                            <div class="col-5">
+                            {{-- <div class="col-5">
                                 <select class="form-control" id="bulan">
                                     <option value="">Pilih Bulan</option>
                                     @foreach (bulan() as $key => $bulan)
@@ -120,8 +120,16 @@
                                     @for($i = 2022; $i <= 2030; $i++) <option value="{{$i}}">{{$i}}</option>
                                         @endfor
                                 </select>
+                            </div> --}}
+
+                            <div class="col-5">
+                                <input type="date" name="start_date" id="start_date" class="form-control start_date" placeholder="tanggal awal">
+                            </div> -
+                            <div class="col-5">
+                                <input type="date" name="end_date" id="end_date" class="form-control end_date" placeholder="tanggal akhir">
                             </div>
-                            <div class="col-2">
+
+                            <div class="col-1">
                                 <button class="btn btn-primary" id="btn-search">
                                     <i class="fa fa-search"></i>
                                 </button>
@@ -143,16 +151,26 @@
 
 @push('script')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 <script>
     $(document).ready(function(){
-        function renderChart(bulan, tahun, filter) {
+        flatpickr('#start_date', {
+            dateFormat: "d-m-Y"
+        })
+
+        flatpickr('#end_date', {
+            dateFormat: "d-m-Y"
+        })
+
+        function renderChart(start_date, end_date, filter) {
             $('.render').empty()
-            if(bulan == '' || tahun == '' || filter == ''){
+            // if(bulan == '' || tahun == '' || filter == ''){
+            if(start_date == '' || end_date == '' || filter == ''){
                 $('.render').html('<div class="text-center"><h4>Tidak ada data</h4></div>')
                 Swal.fire({
                     icon: 'warning',
                     title: 'Maaf...',
-                    text: 'Pilih Bulan dan Tahun atu Filter terlebih dahulu!',
+                    text: 'Pilih tanggal pencarian!',
                 });
             }else{
                 $.ajax({
@@ -160,8 +178,8 @@
                     type: 'POST',
                     data: {
                         filter: filter,
-                        bulan: bulan,
-                        tahun: tahun,
+                        start_date: start_date,
+                        end_date: end_date,
                         _token: '{{csrf_token()}}'
                     },
                     success: function(data){
@@ -173,10 +191,10 @@
 
         $('#btn-search').click(function(){
             $('.render').empty()
-            var bulan = $('#bulan').val();
-            var tahun = $('#tahun').val();
+            var start_date = $('#start_date').val();
+            var end_date = $('#end_date').val();
             var filter = $('#filter').val();
-            renderChart(bulan, tahun, filter);
+            renderChart(start_date, end_date, filter);
         });
     });
 </script>

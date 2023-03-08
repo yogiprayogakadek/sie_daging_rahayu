@@ -16,7 +16,8 @@
         $('body .render').html('<div class="alert alert-danger text-center">Tidak ada data pada bulan ini</div>');
     @endif
 
-    $('body .chart-title').html('Chart Produk {{$bulan}} {{$tahun}}');
+    $('body .chart-title').html('Chart Produk');
+    
 
     var label = [];
     var jumlah = [];
@@ -51,14 +52,48 @@
         }]
     };
 
+    var options = {
+        plugins: {
+            datalabels: {
+                anchor: 'end', // Position the label at the end of the bar
+                align: 'top', // Position the label on top of the bar
+                color: 'red',
+                font: {
+                    weight: 'bold',
+                    size: '14pt'
+                },
+                formatter: function(value, context) {
+                    return value;
+                    
+                    // if (context.dataIndex === context.chart.data.datasets[0].data.length - 1) {
+                    //     // console.log(context.chart.data.datasets[0].data[context.chart.data.datasets[0].data.length - 1])
+                    //     // Show the sum of all data points on top
+                    //     const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                    //     // return total;
+                    //     // return 'Total: ' + total;
+                    //     return context.chart.data.datasets[0].data[context.chart.data.datasets[0].data.length - 1];
+                    // } else {
+                    //     // return value;
+                    //     // return context.chart.data.labels[context.dataIndex] + ': ' + value;
+                    //     return value;
+                    // }
+                }
+            },
+            tooltip: {
+                enabled: false
+            }
+        }
+    };
+
     var config = {
         type: 'bar',
         data: data,
-        options: {}
+        options: options,
+        plugins: [ChartDataLabels]
     };
 
     var myChart = new Chart(
-        document.getElementById('myChart'),
+        document.getElementById('myChart').getContext('2d'),
         config
     );
 </script>

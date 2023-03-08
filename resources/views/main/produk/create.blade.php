@@ -44,7 +44,7 @@
                 </div>
                 <div class="form-group mt-2">
                     <label for="gambar">Foto Produk</label>
-                    <input type="file" class="form-control gambar" name="gambar" id="gambar">
+                    <input type="file" class="form-control gambar" name="gambar" id="gambar" accept="image/*">
                     <div class="invalid-feedback error-gambar"></div>
                 </div>
                 <div class="form-group mt-2">
@@ -67,6 +67,23 @@
 </div>
 
 <script>
+    $('#gambar').change(function() {
+        var file = this.files[0];
+        if (file && file.type.match(/^image\//)) {
+        // The selected file is an image
+        // Do something with the file
+            console.log('Selected file:', file.name);
+        } else {
+        // The selected file is not an image
+            $('#gambar').val('')
+            Swal.fire(
+                'info',
+                'Hanya mendukung gambar',
+                'info'
+            )
+        }
+    })
+
     $("#harga").inputFilter(function(value) {
         return /^\d*$/.test(value); }, "Tidak bisa negatif");
 </script>

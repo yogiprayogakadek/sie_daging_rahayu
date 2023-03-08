@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,12 +18,15 @@ class DashboardController extends Controller
     {
         $chart = array();
         if($request->filter == 'product') {
+            $start_date = DateTime::createFromFormat('d-m-Y', $request->start_date);
+            $end_date = DateTime::createFromFormat('d-m-Y', $request->end_date);
             $data = DB::table('produk')
                     ->select('produk.id', 'produk.nama', DB::raw('SUM(detail_penjualan.kuantitas) as kuantitas'))
                     ->leftJoin('detail_penjualan', 'produk.id', '=', 'detail_penjualan.produk_id')
                     ->leftJoin('penjualan', 'detail_penjualan.penjualan_id', '=', 'penjualan.id')
-                    ->whereMonth('penjualan.tanggal_transaksi', $request->bulan)
-                    ->whereYear('penjualan.tanggal_transaksi', $request->tahun)
+                    ->whereBetween('penjualan.tanggal_transaksi', [$start_date->format('Y-m-d'), $end_date->format('Y-m-d')])
+                    // ->whereMonth('penjualan.tanggal_transaksi', $request->bulan)
+                    // ->whereYear('penjualan.tanggal_transaksi', $request->tahun)
                     ->groupBy('produk.id')
                     ->get();
         }
@@ -55,8 +59,8 @@ class DashboardController extends Controller
 
         $view = [
             'data' => view('main.dashboard.chart.index')->with([
-                'bulan' => bulan()[$request->bulan-1],
-                'tahun' => $request->tahun,
+                // 'bulan' => bulan()[$request->bulan-1],
+                // 'tahun' => $request->tahun,
                 'chart' => $chart,
                 'totalData' => count($data),
                 // 'tertinggiProduk' => str_replace(',', ', ', str_replace(['["', '"]', '"'], '', json_encode($tertinggiProduk))),
