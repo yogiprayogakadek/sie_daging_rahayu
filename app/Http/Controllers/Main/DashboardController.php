@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
+use App\Models\Penjualan;
+use App\Models\ProdukAtribut;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +17,7 @@ class DashboardController extends Controller
     }
 
     public function chart(Request $request)
-    {
+    {         
         $chart = array();
         if($request->filter == 'product') {
             $start_date = DateTime::createFromFormat('d-m-Y', $request->start_date);
@@ -36,42 +38,82 @@ class DashboardController extends Controller
                 'jumlah' => $value->kuantitas,
             ];
         }
-        // $maxVal = array_keys(array_column($chart, 'jumlah'), max(array_column($chart, 'jumlah')));
-        // $minVal = array_keys(array_column($chart, 'jumlah'), min(array_column($chart, 'jumlah')));
-
-        // $terendahProduk = [];
-        // $terendahValue = [];
-        // $terendah = [];
-        // for($i = 0; $i < count($minVal); $i++) {
-        //     array_push($terendahValue, $chart[$minVal[$i]]['jumlah']);
-        //     array_push($terendahProduk, $chart[$minVal[$i]]['nama_produk']);
-        //     array_push($terendah, $chart[$minVal[$i]]['nama_produk'] . ' dengan ' . $chart[$minVal[$i]]['jumlah'] . ' buah');
-        // }
-
-        // $tertinggiProduk = [];
-        // $tertinggiValue = [];
-        // $tertinggi = [];
-        // for($i = 0; $i < count($maxVal); $i++) {
-        //     array_push($tertinggiValue, $chart[$maxVal[$i]]['jumlah']);
-        //     array_push($tertinggiProduk, $chart[$maxVal[$i]]['nama_produk']);
-        //     array_push($tertinggi, $chart[$maxVal[$i]]['nama_produk'] . ' ' . $chart[$maxVal[$i]]['jumlah'] . ' buah');
-        // }
 
         $view = [
             'data' => view('main.dashboard.chart.index')->with([
-                // 'bulan' => bulan()[$request->bulan-1],
-                // 'tahun' => $request->tahun,
                 'chart' => $chart,
                 'totalData' => count($data),
-                // 'tertinggiProduk' => str_replace(',', ', ', str_replace(['["', '"]', '"'], '', json_encode($tertinggiProduk))),
-                // 'tertinggiValue' => str_replace(' ', ', ', implode(" ", $tertinggiValue)),
-                // 'terendahProduk' => str_replace(',', ', ', str_replace(['["', '"]', '"'], '', json_encode($terendahProduk))),
-                // 'terendahValue' => str_replace(' ', ', ', implode(" ", $terendahValue)),
-                
-                // 'tertinggi' => str_replace(',', ', ', str_replace(['["', '"]', '"'], '', json_encode($tertinggi))),
-                // 'terendah' => str_replace(',', ', ', str_replace(['["', '"]', '"'], '', json_encode($terendah)))
             ])->render()
         ];
+
+        return response()->json($view);
+    }
+
+    public function chartTerlaris(Request $request)
+    {
+        // TERLARIS
+        $start_date = DateTime::createFromFormat('d-m-Y', $request->start_date);
+        $end_date = DateTime::createFromFormat('d-m-Y', $request->end_date);
+
+        $data = DB::table('produk')
+            ->select('produk.id', 'produk.nama', DB::raw('SUM(detail_penjualan.kuantitas) as kuantitas'))
+            ->leftJoin('detail_penjualan', 'produk.id', '=', 'detail_penjualan.produk_id')
+            ->leftJoin('penjualan', 'detail_penjualan.penjualan_id', '=', 'penjualan.id')
+            ->whereBetween('penjualan.tanggal_transaksi', [$start_date->format('Y-m-d'), $end_date->format('Y-m-d')])
+            ->groupBy('produk.id')
+            ->get()->take(5)->toArray();
+
+        usort($data, function($a, $b) {
+            return $b->kuantitas - $a->kuantitas;
+        });
+
+        $terlaris = [];
+        foreach($data as $i => $v) {
+            $terlaris[] = [
+                'nama_produk' => $v->nama,
+                'kuantitas' => $v->kuantitas,
+            ];
+        }
+
+        $view = [
+            'data' => view('main.dashboard.chart.terlaris')->with([
+                'terlaris' => $terlaris
+            ])->render()
+        ];
+
+        // dd($terlaris);
+
+        return response()->json($view);
+    }
+
+    public function chartPendapatan(Request $request)
+    {
+        // TERLARIS
+        $start_date = DateTime::createFromFormat('d-m-Y', $request->start_date);
+        $end_date = DateTime::createFromFormat('d-m-Y', $request->end_date);
+
+        $data = Penjualan::groupBy('tanggal_transaksi')
+                    ->select('tanggal_transaksi')
+                    ->selectRaw('sum(total) as total')
+                    ->whereBetween('tanggal_transaksi', [$start_date, $end_date])
+                    ->get();
+
+        $pendapatan = [];
+        foreach($data as $i => $v) {
+            $pendapatan[] = [
+                'tanggal' => date_format(date_create($v->tanggal_transaksi), 'd-m-Y'),
+                'total' => $v->total,
+            ];
+        }
+
+        // dd($pendapatan);
+
+        $view = [
+            'data' => view('main.dashboard.chart.pendapatan')->with([
+                'pendapatan' => $pendapatan
+            ])->render()
+        ];
+
 
         return response()->json($view);
     }

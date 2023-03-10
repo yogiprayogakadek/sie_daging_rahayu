@@ -21,6 +21,8 @@ Route::middleware('auth')->namespace('Main')->group(function() {
         ->group(function() {
             Route::get('/', 'index')->name('index');
             Route::post('/chart', 'chart')->name('chart');
+            Route::post('/chart-terlaris', 'chartTerlaris')->name('chart.terlaris');
+            Route::post('/chart-pendapatan', 'chartPendapatan')->name('chart.pendapatan');
     });
 
     Route::controller(KategoriController::class)

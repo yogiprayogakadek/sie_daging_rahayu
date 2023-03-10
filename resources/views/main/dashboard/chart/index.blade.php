@@ -14,11 +14,12 @@
 <script>
     @if ($totalData == 0)
         $('body .render').html('<div class="alert alert-danger text-center">Tidak ada data pada bulan ini</div>');
+        $('body .render-terlaris').html('<div class="alert alert-danger text-center">Tidak ada data pada bulan ini</div>');
     @endif
 
     $('body .chart-title').html('Chart Produk');
     
-
+    // Penjualan
     var label = [];
     var jumlah = [];
 

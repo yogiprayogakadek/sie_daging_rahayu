@@ -110,6 +110,7 @@
                             <input type="text" class="form-control" name="discount"> 
                             <span class="input-group-text btn btn-primary btn-discount">Terapkan Diskon</span> 
                         </div>
+                        <p class="text-muted text-small">*diskon berupa persentase</p>
                     </div>
                 </div>
             </div>
