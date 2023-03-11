@@ -3,6 +3,9 @@
 </div>
 
 <div class="card-footer">
+    <h4>
+        Dari grafik diatas dapat disimpulkan pendapatan tertinggi yang di hasilkan yaitu tanggal {!!'<strong>' . $tertinggi['tanggal'] . '</strong>' !!} dengan total pendapatan   {!! '<strong>' . convertToRupiah($tertinggi['total']) . '</strong>' !!}. Sementara untuk pendapatan terendah yang di hasilkan yaitu tanggal {!!'<strong>' . $terendah['tanggal'] . '</strong>' !!}  dengan total pendapatan {!! '<strong>' . convertToRupiah($terendah['total']) . '</strong>' !!}.
+    </h4>
 </div>
 <script>
     $('body .chart-title').html('Chart Produk');

@@ -3,6 +3,9 @@
 </div>
 
 <div class="card-footer">
+    <h4>
+        Dari grafik diatas dapat disimpulkan produk yang terlaris pada tanggal {!!'<strong>' . $tanggal . '</strong>' !!}  adalah {!! '<strong>' . $produk . '</strong>' !!}. dengan jumlah masing - masing sebagai berikut {!! '<strong>' . $kuantitas . '</strong>' !!}.
+    </h4>
 </div>
 <script>
     $('body .chart-title').html('Chart Produk');

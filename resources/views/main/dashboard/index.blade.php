@@ -137,7 +137,7 @@
                             <div class="card-header">
                                 <h6 class="card-title mb-0">Chart 5 Produk Terlaris</h6>
                             </div>
-                            <div class="card-body mt-5 render-terlaris">
+                            <div class="card-body render-terlaris">
                                 <h6 class="text-center">
                                     Chart akan tampil disini
                                 </h6>

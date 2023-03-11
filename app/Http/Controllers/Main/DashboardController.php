@@ -39,10 +39,26 @@ class DashboardController extends Controller
             ];
         }
 
+        // Terlaris
+        $produk = DB::table('produk')
+            ->select('produk.id', 'produk.nama', DB::raw('SUM(detail_penjualan.kuantitas) as kuantitas'))
+            ->leftJoin('detail_penjualan', 'produk.id', '=', 'detail_penjualan.produk_id')
+            ->leftJoin('penjualan', 'detail_penjualan.penjualan_id', '=', 'penjualan.id')
+            ->whereBetween('penjualan.tanggal_transaksi', [$start_date->format('Y-m-d'), $end_date->format('Y-m-d')])
+            ->groupBy('produk.id')
+            ->get()->toArray();
+
+        usort($produk, function($a, $b) {
+            return $b->kuantitas - $a->kuantitas;
+        });
+
         $view = [
             'data' => view('main.dashboard.chart.index')->with([
                 'chart' => $chart,
                 'totalData' => count($data),
+                'tanggal' => $start_date->format('Y-m-d') . ' s/d ' . $end_date->format('Y-m-d'),
+                'tertinggi' => current($produk),
+                'terendah' => end($produk)
             ])->render()
         ];
 
@@ -68,16 +84,29 @@ class DashboardController extends Controller
         });
 
         $terlaris = [];
+        $produk = "";
+        $kuantitas = "";
         foreach($data as $i => $v) {
             $terlaris[] = [
                 'nama_produk' => $v->nama,
                 'kuantitas' => $v->kuantitas,
             ];
+            $produk .= $v->nama . ', ';
+            $kuantitas .= $v->kuantitas . ', ';
         }
+
+        // dd(implode(', ', array_map(function ($entry) {
+        //     return ($entry[key($entry)]);
+        // }, $terlaris)));
+
+        // dd(rtrim($produk, ', '));
 
         $view = [
             'data' => view('main.dashboard.chart.terlaris')->with([
-                'terlaris' => $terlaris
+                'terlaris' => $terlaris,
+                'produk' => substr_replace(rtrim($produk, ', '), ' dan', strrpos(rtrim($produk, ', '), ','), 1),
+                'kuantitas' => substr_replace(rtrim($kuantitas, ', '), ' dan', strrpos(rtrim($kuantitas, ', '), ','), 1),
+                'tanggal' => $start_date->format('Y-m-d') . ' s/d ' . $end_date->format('Y-m-d'),
             ])->render()
         ];
 
@@ -106,11 +135,13 @@ class DashboardController extends Controller
             ];
         }
 
-        // dd($pendapatan);
+        // dd(current($pendapatan)['tanggal']);
 
         $view = [
             'data' => view('main.dashboard.chart.pendapatan')->with([
-                'pendapatan' => $pendapatan
+                'pendapatan' => $pendapatan,
+                'tertinggi' => current($pendapatan),
+                'terendah' => end($pendapatan),
             ])->render()
         ];
 

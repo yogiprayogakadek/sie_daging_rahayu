@@ -7,9 +7,9 @@
         Dari grafik diatas dapat disimpulkan produk yang terjual paling banyak pada bulan {!!'<strong>' . $bulan . '</strong>' !!} tahun {!!'<strong>' . $tahun . '</strong>' !!} adalah {!! '<strong>' . $tertinggiProduk . '</strong>' !!} dengan total penjualan {!! '<strong>' . $tertinggiValue . '</strong>' !!} buah. Sementara untuk produk yang terjual paling sedikit pada bulan {!!'<strong>' . $bulan . '</strong>' !!} tahun {!!'<strong>' . $tahun . '</strong>' !!} adalah {!! '<strong>' . $terendahProduk . '</strong>' !!} dengan total penjualan masing - masing {!! '<strong>' . $terendahValue . '</strong>' !!} buah.
     </h4> --}}
 
-    {{-- <h4>
-        Dari grafik diatas dapat disimpulkan produk yang terjual paling banyak pada bulan {!!'<strong>' . $bulan . '</strong>' !!} tahun {!!'<strong>' . $tahun . '</strong>' !!} adalah {!! '<strong>' . $tertinggi . '</strong>' !!}. Sementara untuk produk yang terjual paling sedikit pada bulan {!!'<strong>' . $bulan . '</strong>' !!} tahun {!!'<strong>' . $tahun . '</strong>' !!} adalah {!! '<strong>' . $terendah . '</strong>' !!}.
-    </h4> --}}
+    <h4>
+        Dari grafik diatas dapat disimpulkan produk yang terjual paling banyak pada tanggal {!!'<strong>' . $tanggal . '</strong>' !!}  adalah {!! '<strong>' . $tertinggi->nama . '</strong>' !!}. Sementara untuk produk yang terjual paling sedikit pada tanggal {!!'<strong>' . $tanggal . '</strong>' !!}  adalah {!! '<strong>' . $terendah->nama . '</strong>' !!}.
+    </h4>
 </div>
 <script>
     @if ($totalData == 0)
